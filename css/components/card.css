@@ -4,6 +4,7 @@
    ============================================================================= */
 
 .card {
+  container-type: inline-size;
   display: flex;
   flex-direction: column;
   background: var(--surface);
@@ -16,7 +17,15 @@
    Without a screenshot the card shows the project's initials on a pixel grid,
    which is a deliberate placeholder rather than a broken image. */
 .card__thumb {
-  height: 168px;
+  /* A ratio rather than a fixed height: the card's width varies with how many
+     projects there are, and a screenshot cropped to whatever 168px happened to
+     be next to a 549px-wide card would show almost nothing. 16:10 is close to
+     a browser window, so app screenshots drop in without an awkward crop. */
+  aspect-ratio: 16 / 10;
+  /* Capped, because the ratio only applies until there are enough projects
+     to narrow the cards. With just two, an uncapped 16:10 is 343px of empty
+     placeholder per card, which advertises the missing screenshot. */
+  max-height: 260px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -31,13 +40,13 @@
 .card__initials {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: 58px;
+  font-size: clamp(48px, 11cqw, 76px);
   letter-spacing: 2px;
   color: #2f363c;
 }
 
 .card__thumb--shot { background: #101417; padding: 0; }
-.card__shot { width: 100%; height: 100%; object-fit: cover; }
+.card__shot { width: 100%; height: 100%; object-fit: cover; object-position: top; }
 
 /* -- Body ----------------------------------------------------------------- */
 .card__body {
@@ -92,39 +101,7 @@
 .card__link--muted { color: var(--text-muted); }
 .card__link--muted:hover { color: var(--text); }
 
-/* -- The empty slot at the end of the grid -------------------------------- */
-.card--next {
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  min-height: 300px;
-  padding: 40px 28px;
-  background: none;
-  border: 1px dashed #24292e;
-  color: #3a4046;
-  text-align: center;
-}
-
-.card--next svg { width: 26px; height: 26px; }
-
-.card__next-label {
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 16px;
-  letter-spacing: 1px;
-  color: var(--text-faint);
-}
-
-.card__next-text {
-  font-size: 13px;
-  line-height: 1.6;
-  color: var(--text-faint);
-  max-width: 190px;
-}
-
-/* On a phone the tall empty slot is mostly dead space. */
 @media (max-width: 560px) {
-  .card--next { min-height: 0; padding: 30px 24px; }
   .card__links { flex-wrap: wrap; gap: 12px; }
   .card__link {
     flex: 1 1 auto;

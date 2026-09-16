@@ -234,11 +234,16 @@ ul { margin: 0; padding: 0; list-style: none; }
 .panel h3 { font-size: 17px; letter-spacing: 0.5px; }
 
 /* -- Projects grid --------------------------------------------------------
-   auto-fill, not a fixed column count: two cards or twenty, the grid decides
-   how many fit and wraps the rest. Adding a project is a data change only. */
+   Not a fixed column count: two cards or twenty, the grid decides how many fit
+   and wraps the rest. Adding a project is a data change only.
+
+   auto-FIT rather than auto-fill: with fewer projects than columns that would
+   hold, auto-fill keeps the empty tracks and leaves a card-shaped hole on the
+   right, which reads as a missing project. auto-fit collapses them and the
+   cards share the width. From three projects up the two behave identically. */
 .projects {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 22px;
   align-items: stretch;
 }
