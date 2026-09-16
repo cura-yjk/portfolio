@@ -39,6 +39,7 @@ const PROJECTS = [
       "quiz yourself on, and export to Anki. Interface in six languages.",
     tags: ["Rails 8", "Gemini", "Hotwire", "PostgreSQL"],
     initials: "PF",
+    image: "images/pera-flash.jpg",
     live: "https://pera-flash-3683e7b80a56.herokuapp.com/",
     repo: "https://github.com/cura-yjk/pera-flash",
     team: "Team of 3"
