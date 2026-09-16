@@ -129,35 +129,12 @@ function cardFor(project) {
   return card;
 }
 
-function nextSlot() {
-  const slot = el("div", "card card--next");
-  const svg = document.createElementNS(svgNS, "svg");
-  svg.setAttribute("viewBox", "0 0 24 24");
-  svg.setAttribute("fill", "none");
-  svg.setAttribute("stroke", "currentColor");
-  svg.setAttribute("stroke-width", "1.8");
-  svg.setAttribute("stroke-linecap", "round");
-  svg.setAttribute("aria-hidden", "true");
-  for (const d of ["M12 5v14", "M5 12h14"]) {
-    const path = document.createElementNS(svgNS, "path");
-    path.setAttribute("d", d);
-    svg.appendChild(path);
-  }
-  slot.append(
-    svg,
-    el("span", "card__next-label", "NEXT PROJECT"),
-    el("p", "card__next-text", "This grid grows as I build. New cards drop in automatically.")
-  );
-  return slot;
-}
-
 function render() {
   const grid = document.querySelector("[data-projects]");
   if (!grid) return;
 
   const fragment = document.createDocumentFragment();
   for (const project of PROJECTS) fragment.appendChild(cardFor(project));
-  fragment.appendChild(nextSlot());
 
   grid.replaceChildren(fragment);
 
