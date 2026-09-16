@@ -1,0 +1,314 @@
+/* =============================================================================
+   Yusuke Kamihanawa — portfolio
+   Plain CSS, no build step. Component styles live in css/components/.
+   ============================================================================= */
+
+@import url(components/card.css);
+
+/* -- Tokens ---------------------------------------------------------------
+   Change a colour or a rhythm once, here, and the whole page follows. */
+:root {
+  --bg:            #08090a;
+  --surface:       #0e1012;
+  --line:          #1a1d20;
+  --line-strong:   #2a2f34;
+  --text:          #f2f4f3;
+  --text-soft:     #9aa1a8;
+  --text-muted:    #8b9299;
+  --text-faint:    #4a5157;
+  --accent:        #3ee08a;
+  --accent-ink:    #06231a;   /* text on top of --accent */
+
+  --font-display:  'Doto', ui-monospace, 'Courier New', monospace;
+  --font-body:     'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+
+  --gutter:        160px;   /* page side margin, narrowed at breakpoints */
+  --section-y:     84px;    /* vertical padding inside a section */
+  --radius:        6px;
+}
+
+/* -- Base ----------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  margin: 0;
+  text-wrap: balance;
+}
+
+p { margin: 0; text-wrap: pretty; }
+
+a { color: var(--text); text-decoration: none; }
+a:hover { color: #fff; }
+
+img { max-width: 100%; display: block; }
+
+ul { margin: 0; padding: 0; list-style: none; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Visible only when tabbed to — lets a keyboard user skip the nav. */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 12px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  padding: 12px 20px;
+  border-radius: var(--radius);
+  font-weight: 700;
+  z-index: 10;
+}
+.skip-link:focus { left: 16px; }
+
+/* -- Shared bits ---------------------------------------------------------- */
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-display);
+  font-size: 14px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.eyebrow__rule {
+  width: 28px;
+  height: 2px;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+.tags { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.tag {
+  font-size: 13px;
+  color: var(--text-soft);
+  border: 1px solid #23282d;
+  border-radius: 3px;
+  padding: 5px 10px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 50px;
+  padding: 0 28px;
+  border-radius: 4px;
+  font-size: 15px;
+  font-family: inherit;
+}
+.btn svg { width: 17px; height: 17px; flex-shrink: 0; }
+
+.btn--primary { background: var(--accent); color: var(--accent-ink); font-weight: 700; }
+.btn--primary:hover { background: #55eb9c; color: var(--accent-ink); }
+
+.btn--ghost { border: 1px solid var(--line-strong); color: var(--text); }
+.btn--ghost:hover { border-color: #3d444a; }
+
+.btn--icon { width: 50px; padding: 0; border: 1px solid var(--line-strong); }
+.btn--icon:hover { border-color: #3d444a; }
+.btn--icon svg { width: 19px; height: 19px; }
+
+/* -- Nav ------------------------------------------------------------------ */
+.nav { border-bottom: 1px solid var(--line); }
+
+.nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 26px var(--gutter);
+}
+
+.nav__mark {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: 1px;
+}
+
+.nav__dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+
+.nav__links { display: flex; gap: 36px; font-size: 15px; }
+.nav__links a { color: var(--text-muted); }
+.nav__links a:hover { color: var(--text); }
+
+/* -- Hero ----------------------------------------------------------------- */
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 80px;
+  align-items: center;
+  padding: 96px var(--gutter) 104px;
+}
+
+.hero__text { display: flex; flex-direction: column; gap: 26px; }
+
+.hero h1 {
+  font-size: clamp(42px, 5.2vw, 74px);
+  line-height: 1.02;
+  letter-spacing: -1px;
+}
+
+.hero__lede { font-size: 19px; line-height: 1.65; color: var(--text-soft); max-width: 520px; }
+
+.hero__actions { display: flex; flex-wrap: wrap; gap: 16px; padding-top: 10px; }
+
+.hero__portrait img {
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  object-fit: cover;
+  /* Layers paint front-to-back: a hairline on the photo, then a disc of page
+     background reading as a gap, then the outer ring. */
+  box-shadow: 0 0 0 1px var(--line), 0 0 0 14px var(--bg), 0 0 0 15px #23282d;
+}
+
+/* -- Sections ------------------------------------------------------------- */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: var(--section-y) var(--gutter);
+  border-top: 1px solid var(--line);
+}
+
+.section--split {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 72px;
+  align-items: start;
+}
+
+.section__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.section__head h2 { font-size: 40px; line-height: 1.1; padding-top: 18px; }
+.section__meta { font-size: 14px; color: #6f767c; }
+
+.prose { display: flex; flex-direction: column; gap: 22px; max-width: 760px; }
+.prose__lead { font-size: 22px; line-height: 1.6; color: #e6e9ea; }
+.prose p { font-size: 17px; line-height: 1.75; color: var(--text-muted); }
+.prose .prose__lead { font-size: 22px; color: #e6e9ea; }
+
+/* -- Stack ---------------------------------------------------------------- */
+.stack-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 20px;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 26px 24px;
+}
+.panel h3 { font-size: 17px; letter-spacing: 0.5px; }
+
+/* -- Projects grid --------------------------------------------------------
+   auto-fill, not a fixed column count: two cards or twenty, the grid decides
+   how many fit and wraps the rest. Adding a project is a data change only. */
+.projects {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 22px;
+  align-items: stretch;
+}
+
+.noscript { grid-column: 1 / -1; color: var(--text-muted); }
+.noscript a { color: var(--accent); text-decoration: underline; }
+
+/* -- Contact -------------------------------------------------------------- */
+.contact__title { font-size: 44px; line-height: 1.1; max-width: 640px; }
+.contact__text { font-size: 17px; line-height: 1.7; color: var(--text-muted); max-width: 540px; }
+.contact__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+
+/* -- Footer --------------------------------------------------------------- */
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 26px var(--gutter) 34px;
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+  color: var(--text-faint);
+}
+
+.footer__mark { font-family: var(--font-display); letter-spacing: 2px; }
+
+/* -- Responsive -----------------------------------------------------------
+   Only the gutter and the two hand-built layouts (hero, about) need help.
+   The stack and project grids reflow on their own. */
+@media (max-width: 1100px) {
+  :root { --gutter: 72px; --section-y: 64px; }
+  .hero { gap: 48px; }
+  .hero__portrait img { width: 260px; height: 260px; }
+}
+
+@media (max-width: 820px) {
+  :root { --gutter: 40px; }
+
+  .hero {
+    grid-template-columns: minmax(0, 1fr);
+    padding-top: 56px;
+    padding-bottom: 64px;
+  }
+  /* Portrait above the text once they stack — a face is a better opening
+     than a heading. */
+  .hero__portrait { order: -1; }
+  .hero__portrait img { width: 160px; height: 160px; }
+
+  .section--split { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .section__head h2 { font-size: 32px; }
+  .contact__title { font-size: 32px; }
+  .prose__lead { font-size: 19px; }
+}
+
+@media (max-width: 560px) {
+  :root { --gutter: 22px; --section-y: 48px; }
+
+  .nav__links { gap: 20px; font-size: 14px; }
+  .hero__lede { font-size: 16px; }
+  .hero__actions { flex-direction: column; align-items: stretch; }
+  .hero__actions .btn { width: 100%; }
+
+  /* Email on its own row, the two icons sharing the next one, rather than
+     whatever order flex-wrap happens to produce. */
+  .contact__actions .btn--primary { flex: 1 0 100%; }
+  .contact__actions .btn--icon { flex: 1 1 0; width: auto; }
+  .footer { flex-direction: column; align-items: flex-start; gap: 6px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
