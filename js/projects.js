@@ -13,6 +13,7 @@
 //               -- the card drops the "Live site" link and the
 //               status pill by itself, no dead buttons.             (optional)
 //   repo        URL of the source.                                  (optional)
+//   team        Credit line, e.g. "Team of 3". Omit on solo work.    (optional)
 //   image       Screenshot path, e.g. "images/moodwalk.png". Omit
 //               it and the card shows `initials` instead.           (optional)
 // =============================================================================
@@ -21,22 +22,26 @@ const PROJECTS = [
   {
     name: "Moodwalk",
     blurb:
-      "Suggests a short walking route near you based on how you are feeling, guides you turn by " +
-      "turn, then logs your mood and a reflection once you are done.",
-    tags: ["Rails 8", "PostGIS", "Mapbox", "Gemini"],
+      "Generates a walking route near you from how you want to feel, guides you along it turn by " +
+      "turn while tracking the path you actually take, then logs your mood and a reflection. " +
+      "Finished walks can be shared to a community feed.",
+    tags: ["Rails 8", "PostGIS", "Mapbox", "Google Places"],
     initials: "MW",
     live: "https://moodwalk-ec6251edd332.herokuapp.com/",
-    repo: "https://github.com/cura-yjk/moodwalk"
+    repo: "https://github.com/cura-yjk/moodwalk",
+    team: "Team of 3"
   },
   {
     name: "Pera Flash",
     blurb:
-      "A Japanese-learning chatbot. Pera corrects your sentences and explains the grammar, then " +
-      "turns any conversation into flashcard decks you can review, quiz and export.",
-    tags: ["Rails 8", "Gemini", "Turbo", "PostgreSQL"],
+      "A Japanese tutor you chat with. Pera corrects your sentences and explains the grammar, " +
+      "then turns the conversation into flashcards you review on a spaced-repetition schedule, " +
+      "quiz yourself on, and export to Anki. Interface in six languages.",
+    tags: ["Rails 8", "Gemini", "Hotwire", "PostgreSQL"],
     initials: "PF",
     live: "https://pera-flash-3683e7b80a56.herokuapp.com/",
-    repo: "https://github.com/cura-yjk/pera-flash"
+    repo: "https://github.com/cura-yjk/pera-flash",
+    team: "Team of 3"
   }
 ];
 
@@ -106,12 +111,16 @@ function cardFor(project) {
   const body = el("div", "card__body");
 
   // The status pill is a claim that the thing is running. Only a project with a
-  // live URL gets to make it.
+  // live URL gets to make it. The credit sits beside it so a team project says
+  // so before anyone opens the repo and counts contributors.
+  const meta = el("div", "card__meta");
   if (project.live) {
-    const status = el("div", "card__status");
+    const status = el("span", "card__status");
     status.append(el("span", "card__dot"), el("span", null, "Live"));
-    body.appendChild(status);
+    meta.appendChild(status);
   }
+  if (project.team) meta.appendChild(el("span", "card__team", project.team));
+  if (meta.childElementCount) body.appendChild(meta);
 
   body.appendChild(el("h3", "card__name", project.name));
   body.appendChild(el("p", "card__blurb", project.blurb));
