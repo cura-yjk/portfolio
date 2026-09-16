@@ -1,0 +1,171 @@
+// =============================================================================
+// THE ONLY FILE YOU NEED TO EDIT TO ADD A PROJECT.
+//
+// Copy one { ... } block, paste it, change the values. The grid, the layout and
+// the styling all take care of themselves. Newest first is a good default.
+//
+// Fields:
+//   name        Project title.                                      (required)
+//   blurb       One or two sentences. What it does, for whom.       (required)
+//   tags        Tech worth advertising. Three or four is plenty.    (required)
+//   initials    Shown on the card until you add a screenshot.       (required)
+//   live        URL of the deployed app. OMIT IT if there isn't one
+//               -- the card drops the "Live site" link and the
+//               status pill by itself, no dead buttons.             (optional)
+//   repo        URL of the source.                                  (optional)
+//   image       Screenshot path, e.g. "images/moodwalk.png". Omit
+//               it and the card shows `initials` instead.           (optional)
+// =============================================================================
+
+const PROJECTS = [
+  {
+    name: "Moodwalk",
+    blurb:
+      "Suggests a short walking route near you based on how you are feeling, guides you turn by " +
+      "turn, then logs your mood and a reflection once you are done.",
+    tags: ["Rails 8", "PostGIS", "Mapbox", "Gemini"],
+    initials: "MW",
+    live: "https://moodwalk-ec6251edd332.herokuapp.com/",
+    repo: "https://github.com/cura-yjk/moodwalk"
+  },
+  {
+    name: "Pera Flash",
+    blurb:
+      "A Japanese-learning chatbot. Pera corrects your sentences and explains the grammar, then " +
+      "turns any conversation into flashcard decks you can review, quiz and export.",
+    tags: ["Rails 8", "Gemini", "Turbo", "PostgreSQL"],
+    initials: "PF",
+    live: "https://pera-flash-3683e7b80a56.herokuapp.com/",
+    repo: "https://github.com/cura-yjk/pera-flash"
+  }
+];
+
+// -----------------------------------------------------------------------------
+// Rendering. You should not need to touch anything below this line.
+// -----------------------------------------------------------------------------
+
+// Everything from PROJECTS reaches the page as a text node or via setAttribute,
+// never innerHTML, so a stray < or & in a blurb renders as a character instead
+// of breaking the markup.
+const svgNS = "http://www.w3.org/2000/svg";
+
+function el(tag, className, text) {
+  const node = document.createElement(tag);
+  if (className) node.className = className;
+  if (text) node.textContent = text;
+  return node;
+}
+
+function arrowIcon() {
+  const svg = document.createElementNS(svgNS, "svg");
+  svg.setAttribute("viewBox", "0 0 24 24");
+  svg.setAttribute("fill", "none");
+  svg.setAttribute("stroke", "currentColor");
+  svg.setAttribute("stroke-width", "2.4");
+  svg.setAttribute("stroke-linecap", "round");
+  svg.setAttribute("stroke-linejoin", "round");
+  svg.setAttribute("aria-hidden", "true");
+  for (const d of ["M7 17 17 7", "M9 7h8v8"]) {
+    const path = document.createElementNS(svgNS, "path");
+    path.setAttribute("d", d);
+    svg.appendChild(path);
+  }
+  return svg;
+}
+
+function linkTo(url, label, variant) {
+  const a = el("a", `card__link card__link--${variant}`);
+  a.href = url;
+  a.append(label, arrowIcon());
+  // Every project link leaves the site.
+  a.target = "_blank";
+  a.rel = "noopener";
+  a.setAttribute("aria-label", label);
+  return a;
+}
+
+function thumbFor(project) {
+  if (project.image) {
+    const img = el("img", "card__shot");
+    img.src = project.image;
+    img.alt = `Screenshot of ${project.name}`;
+    img.loading = "lazy";
+    const figure = el("div", "card__thumb card__thumb--shot");
+    figure.appendChild(img);
+    return figure;
+  }
+  const thumb = el("div", "card__thumb");
+  thumb.appendChild(el("span", "card__initials", project.initials));
+  return thumb;
+}
+
+function cardFor(project) {
+  const card = el("article", "card");
+  card.appendChild(thumbFor(project));
+
+  const body = el("div", "card__body");
+
+  // The status pill is a claim that the thing is running. Only a project with a
+  // live URL gets to make it.
+  if (project.live) {
+    const status = el("div", "card__status");
+    status.append(el("span", "card__dot"), el("span", null, "Live"));
+    body.appendChild(status);
+  }
+
+  body.appendChild(el("h3", "card__name", project.name));
+  body.appendChild(el("p", "card__blurb", project.blurb));
+
+  const tags = el("ul", "card__tags");
+  for (const tag of project.tags) tags.appendChild(el("li", "tag", tag));
+  body.appendChild(tags);
+
+  const links = el("div", "card__links");
+  if (project.live) links.appendChild(linkTo(project.live, "Live site", "primary"));
+  if (project.repo) links.appendChild(linkTo(project.repo, "Code", "muted"));
+  if (links.childElementCount) body.appendChild(links);
+
+  card.appendChild(body);
+  return card;
+}
+
+function nextSlot() {
+  const slot = el("div", "card card--next");
+  const svg = document.createElementNS(svgNS, "svg");
+  svg.setAttribute("viewBox", "0 0 24 24");
+  svg.setAttribute("fill", "none");
+  svg.setAttribute("stroke", "currentColor");
+  svg.setAttribute("stroke-width", "1.8");
+  svg.setAttribute("stroke-linecap", "round");
+  svg.setAttribute("aria-hidden", "true");
+  for (const d of ["M12 5v14", "M5 12h14"]) {
+    const path = document.createElementNS(svgNS, "path");
+    path.setAttribute("d", d);
+    svg.appendChild(path);
+  }
+  slot.append(
+    svg,
+    el("span", "card__next-label", "NEXT PROJECT"),
+    el("p", "card__next-text", "This grid grows as I build. New cards drop in automatically.")
+  );
+  return slot;
+}
+
+function render() {
+  const grid = document.querySelector("[data-projects]");
+  if (!grid) return;
+
+  const fragment = document.createDocumentFragment();
+  for (const project of PROJECTS) fragment.appendChild(cardFor(project));
+  fragment.appendChild(nextSlot());
+
+  grid.replaceChildren(fragment);
+
+  const count = document.querySelector("[data-project-count]");
+  if (count) {
+    const shipped = PROJECTS.filter((p) => p.live).length;
+    count.textContent = `${shipped} shipped · more on the way`;
+  }
+}
+
+document.addEventListener("DOMContentLoaded", render);
