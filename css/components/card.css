@@ -59,7 +59,16 @@
   flex-grow: 1;
 }
 
-.card__status { display: flex; align-items: center; gap: 8px; }
+.card__meta { display: flex; align-items: center; flex-wrap: wrap; gap: 14px; }
+
+.card__status { display: inline-flex; align-items: center; gap: 8px; }
+
+.card__team {
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
 
 .card__dot {
   width: 6px;
