@@ -1,5 +1,5 @@
 /* =============================================================================
-   Yusuke Kamihanawa — portfolio
+   Yusuke Kamihanawa portfolio
    Plain CSS, no build step. Component styles live in css/components/.
    ============================================================================= */
 
@@ -15,9 +15,23 @@
   --text:          #f2f4f3;
   --text-soft:     #9aa1a8;
   --text-muted:    #8b9299;
-  --text-faint:    #4a5157;
+  --text-faint:    #787f85;   /* 4.9:1 on --bg; was #4a5157, which was 2.5:1 */
+  --text-bright:   #e6e9ea;   /* lead paragraphs, a step above --text-soft */
+  --text-strong:   #ffffff;   /* the emphatic end of the ramp, used on hover */
   --accent:        #3ee08a;
   --accent-ink:    #06231a;   /* text on top of --accent */
+  --accent-hi:     #55eb9c;   /* accent, hovered */
+
+  --surface-2:     #101417;   /* thumbnails and spec panels, below --surface */
+  --grid-line:     #171c20;   /* the pixel grid behind a missing screenshot */
+  --rule:          #23282d;   /* hairlines and diagram axes */
+  --line-hover:    #3d444a;
+  --placeholder:   #2f363c;   /* initials shown when a project has no shot */
+  --tag-text:      #7d848a;
+
+  --diagram-bad:   #ff8fa3;   /* the before case in a figure */
+  --diagram-good:  #3ee08a;   /* the after case */
+  --diagram-mark:  #8b9299;   /* a neutral point of origin */
 
   --font-display:  'Doto', ui-monospace, 'Courier New', monospace;
   --font-body:     'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
@@ -25,6 +39,43 @@
   --gutter:        160px;   /* page side margin, narrowed at breakpoints */
   --section-y:     84px;    /* vertical padding inside a section */
   --radius:        6px;
+}
+
+/* Tells the browser which schemes exist, so scrollbars, form controls and the
+   address bar on mobile match the page instead of rendering against it. */
+:root { color-scheme: light dark; }
+
+/* -- Light theme ----------------------------------------------------------
+   Only the tokens change; no rule below this is redeclared. Every value was
+   picked against its own background for at least 4.5:1, apart from
+   --placeholder, which is a decorative watermark rather than information. */
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg:          #fafaf9;
+    --surface:     #ffffff;
+    --line:        #e4e6e7;
+    --line-strong: #b9bec2;
+    --text:        #101314;
+    --text-soft:   #474d52;
+    --text-muted:  #4e545a;
+    --text-faint:  #5f656b;
+    --text-bright: #1d2225;
+    --text-strong: #000000;
+    --accent:      #076b41;
+    --accent-ink:  #ffffff;
+    --accent-hi:   #05502f;
+
+    --surface-2:   #f1f2f3;
+    --grid-line:   #e7e9ea;
+    --rule:        #d6d9db;
+    --line-hover:  #9aa1a8;
+    --placeholder: #c3c8cc;
+    --tag-text:    #5b6167;
+
+    --diagram-bad:  #b02a4a;
+    --diagram-good: #076b41;
+    --diagram-mark: #5f656b;
+  }
 }
 
 /* -- Base ----------------------------------------------------------------- */
@@ -50,7 +101,7 @@ h1, h2, h3 {
 p { margin: 0; text-wrap: pretty; }
 
 a { color: var(--text); text-decoration: none; }
-a:hover { color: #fff; }
+a:hover { color: var(--text-strong); }
 
 /* height: auto matters as soon as an <img> carries width/height attributes:
    max-width shrinks the width to the column, the attribute keeps the height,
@@ -65,7 +116,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   border-radius: 2px;
 }
 
-/* Visible only when tabbed to — lets a keyboard user skip the nav. */
+/* Visible only when tabbed to. Lets a keyboard user skip the nav. */
 .skip-link {
   position: absolute;
   left: -9999px;
@@ -88,6 +139,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   font-size: 14px;
   letter-spacing: 3px;
   text-transform: uppercase;
+  font-weight: 400;   /* holds the look when .eyebrow is an <h2> */
   color: var(--accent);
 }
 
@@ -103,7 +155,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .tag {
   font-size: 13px;
   color: var(--text-soft);
-  border: 1px solid #23282d;
+  border: 1px solid var(--rule);
   border-radius: 3px;
   padding: 5px 10px;
 }
@@ -122,13 +174,13 @@ ul { margin: 0; padding: 0; list-style: none; }
 .btn svg { width: 17px; height: 17px; flex-shrink: 0; }
 
 .btn--primary { background: var(--accent); color: var(--accent-ink); font-weight: 700; }
-.btn--primary:hover { background: #55eb9c; color: var(--accent-ink); }
+.btn--primary:hover { background: var(--accent-hi); color: var(--accent-ink); }
 
 .btn--ghost { border: 1px solid var(--line-strong); color: var(--text); }
-.btn--ghost:hover { border-color: #3d444a; }
+.btn--ghost:hover { border-color: var(--line-hover); }
 
 .btn--icon { width: 50px; padding: 0; border: 1px solid var(--line-strong); }
-.btn--icon:hover { border-color: #3d444a; }
+.btn--icon:hover { border-color: var(--line-hover); }
 .btn--icon svg { width: 19px; height: 19px; }
 
 /* -- Nav ------------------------------------------------------------------ */
@@ -184,7 +236,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   object-fit: cover;
   /* Layers paint front-to-back: a hairline on the photo, then a disc of page
      background reading as a gap, then the outer ring. */
-  box-shadow: 0 0 0 1px var(--line), 0 0 0 14px var(--bg), 0 0 0 15px #23282d;
+  box-shadow: 0 0 0 1px var(--line), 0 0 0 14px var(--bg), 0 0 0 15px var(--rule);
 }
 
 /* -- Sections ------------------------------------------------------------- */
@@ -211,12 +263,12 @@ ul { margin: 0; padding: 0; list-style: none; }
   flex-wrap: wrap;
 }
 .section__head h2 { font-size: 40px; line-height: 1.1; padding-top: 18px; }
-.section__meta { font-size: 14px; color: #6f767c; }
+.section__meta { font-size: 14px; color: var(--text-faint); }
 
 .prose { display: flex; flex-direction: column; gap: 22px; max-width: 760px; }
-.prose__lead { font-size: 22px; line-height: 1.6; color: #e6e9ea; }
+.prose__lead { font-size: 22px; line-height: 1.6; color: var(--text-bright); }
 .prose p { font-size: 17px; line-height: 1.75; color: var(--text-muted); }
-.prose .prose__lead { font-size: 22px; color: #e6e9ea; }
+.prose .prose__lead { font-size: 22px; color: var(--text-bright); }
 
 /* -- Stack ---------------------------------------------------------------- */
 .stack-grid {
@@ -291,7 +343,7 @@ ul { margin: 0; padding: 0; list-style: none; }
     padding-top: 56px;
     padding-bottom: 64px;
   }
-  /* Portrait above the text once they stack — a face is a better opening
+  /* Portrait above the text once they stack. A face is a better opening
      than a heading. */
   .hero__portrait { order: -1; }
   .hero__portrait img { width: 160px; height: 160px; }
@@ -317,6 +369,86 @@ ul { margin: 0; padding: 0; list-style: none; }
   .footer { flex-direction: column; align-items: flex-start; gap: 6px; }
 }
 
+/* Hover styling only where a pointer can actually hover. On a touch screen a
+   :hover rule sticks after a tap until something else is tapped. */
+@media (hover: none) {
+  .btn:hover, .card__link:hover, .nav__links a:hover,
+  .case-nav__back:hover, .card__link--primary:hover { color: inherit; }
+  .btn--primary:hover { background: var(--accent); color: var(--accent-ink); }
+  .btn--ghost:hover, .btn--icon:hover { border-color: var(--line-strong); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; animation: none !important; }
+}
+
+/* -- Forced colours -------------------------------------------------------
+   Windows High Contrast replaces the palette outright. Anything that carried
+   meaning through background alone needs a real border to survive that. */
+@media (forced-colors: active) {
+  .btn, .card, .tag, .spec, .panel, .stage { border: 1px solid; }
+  .eyebrow__rule, .card__dot, .case-meta__dot, .nav__dot { forced-color-adjust: none; }
+  .card__thumb { border: 1px solid; }
+  a:focus-visible, .btn:focus-visible { outline: 2px solid; outline-offset: 2px; }
+}
+
+/* Above this the gutter grows with the viewport instead of staying at 160px,
+   which held the content at 2240px wide on a 2560px monitor. Prose already
+   has its own max-width; this is for the two grids, which do not. */
+@media (min-width: 1440px) {
+  :root { --gutter: max(160px, calc((100vw - 1440px) / 2)); }
+}
+
+/* -- Print ----------------------------------------------------------------
+   Someone saving this as a PDF should get the writing, not the chrome. The
+   palette is inverted here rather than left to the browser, which drops
+   backgrounds by default and would otherwise render pale grey text on white. */
+@page { margin: 16mm; }
+
+@media print {
+  :root {
+    --bg: #fff;
+    --surface: #fff;
+    --line: #d3d6d8;
+    --line-strong: #9aa1a8;
+    --text: #000;
+    --text-soft: #24282b;
+    --text-muted: #24282b;
+    --text-faint: #5b6167;
+    --accent: #0a6b3d;      /* dark enough to pass on white */
+    --accent-ink: #fff;
+    --accent-hi: #0a6b3d;
+    --text-bright: #000;
+    --text-strong: #000;
+
+    --surface-2: #f4f5f6;
+    --grid-line: #e7e9ea;
+    --rule: #b9bec2;
+    --line-hover: #9aa1a8;
+    --placeholder: #c3c8cc;
+    --tag-text: #24282b;
+
+    --diagram-bad: #9c1f3f;
+    --diagram-good: #0a6b3d;
+    --diagram-mark: #5b6167;
+
+    --gutter: 0;
+    --section-y: 22px;
+  }
+
+  body { background: #fff; color: #000; font-size: 10.5pt; }
+
+  /* Navigation and buttons do nothing on paper. */
+  .nav, .skip-link, .hero__actions, .contact__actions,
+  .case-head__actions, .case-close .btn { display: none; }
+
+  /* A link that cannot be clicked should still say where it went. */
+  .card__link[href^="http"]::after,
+  .case-prose a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 8.5pt; }
+
+  /* Do not split a project, a stage or a figure across two pages. */
+  .card, .stage, .journey__step, .spread__case, .spec, .panel { break-inside: avoid; }
+
+  .hero { padding-top: 0; }
+  .case-hero, .journey__shot { max-width: 420px; }
 }

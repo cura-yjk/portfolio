@@ -2,7 +2,7 @@
 
 My personal site: [cura-yjk.github.io/portfolio](https://cura-yjk.github.io/portfolio)
 
-Plain HTML, CSS and JavaScript. No framework, no build step, no dependencies — open
+Plain HTML, CSS and JavaScript. No framework, no build step, no dependencies. Open
 `index.html` in a browser and it works.
 
 ## Adding a project
@@ -25,11 +25,11 @@ change the values:
 The grid places the card itself. Two projects or twenty, nothing else needs touching.
 
 - **No `live` URL?** Leave the key out. The card drops the "Live site" link and the green
-  "Live" pill on its own — no dead buttons.
+  "Live" pill on its own, so there are no dead buttons.
 - **No screenshot?** Leave `image` out and the card shows `initials` on a pixel grid instead.
   To add one later, drop the file in `images/` and set `image: "images/name.png"`.
 - **Written it up?** Point `caseStudy` at a page on this site. The card grows a "Case study"
-  link, which becomes its primary one and opens in the same tab — everything else still opens
+  link, which becomes its primary one and opens in the same tab. Everything else still opens
   in a new one. See `moodwalk.html`.
 - Order in the array is the order on the page. Newest first reads well.
 
@@ -47,7 +47,7 @@ images/moodwalk/              the case study's own screens
 ```
 
 **Changing colours or spacing** is one place: the `:root` block at the top of `css/style.css`.
-Every colour on the page is a variable there — `--accent` alone repaints the links, buttons,
+Every colour on the page is a variable there. `--accent` alone repaints the links, buttons,
 pills and rules.
 
 ## Running it locally
@@ -62,7 +62,7 @@ then visit <http://localhost:8000>.
 
 ## Deploying
 
-Pushing to `master` is the deploy — GitHub Pages serves the repo root. No build, no CI.
+Pushing to `master` is the deploy: GitHub Pages serves the repo root. No build, no CI.
 
 ## License
 
