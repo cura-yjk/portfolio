@@ -1,0 +1,229 @@
+/* -- Case study ------------------------------------------------------------
+   One project, at length. Linked from a card; only loaded by the page that
+   uses it, so the index does not pay for it. Everything here reads the tokens
+   in style.css — no colours are redeclared. */
+
+.case-nav__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  color: var(--text-muted);
+}
+.case-nav__back:hover { color: var(--text); }
+.case-nav__back svg { width: 16px; height: 16px; }
+
+/* -- Title ---------------------------------------------------------------- */
+.case-head {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 76px var(--gutter) 56px;
+}
+
+.case-head h1 {
+  font-size: clamp(40px, 5vw, 62px);
+  line-height: 1.04;
+  letter-spacing: -1px;
+}
+
+.case-head__lede {
+  font-size: 21px;
+  line-height: 1.6;
+  color: var(--text-soft);
+  max-width: 720px;
+}
+
+.case-head__actions { display: flex; flex-wrap: wrap; gap: 14px; padding-top: 6px; }
+
+/* Status line above the title. The "Live" pill is the same claim the project
+   card makes, so it is built from the same parts. */
+.case-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+
+.case-meta__item {
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.case-meta__live {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.case-meta__dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+/* -- Hero shot ------------------------------------------------------------ */
+.case-hero { padding: 0 var(--gutter) 76px; }
+
+.case-hero img {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+/* -- Sections ------------------------------------------------------------- */
+.case-section {
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+  padding: var(--section-y) var(--gutter);
+  border-top: 1px solid var(--line);
+}
+
+.case-section--split {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 72px;
+  align-items: start;
+}
+
+.case-section--split .case-body { display: flex; flex-direction: column; gap: 20px; }
+
+/* ROUND_TRIP_SPREAD_THRESHOLD_DEGREES is one unbreakable 35-character token,
+   and it is wider than a phone's text column. */
+.case-prose code { overflow-wrap: anywhere; }
+
+.case-lead { font-size: 21px; line-height: 1.6; color: #e6e9ea; max-width: 760px; }
+.case-prose { font-size: 17px; line-height: 1.75; color: var(--text-muted); max-width: 760px; }
+.case-aside { font-size: 15px; line-height: 1.7; color: #6f767c; max-width: 760px; }
+
+.case-section h2 {
+  font-size: clamp(26px, 3vw, 34px);
+  line-height: 1.15;
+  max-width: 820px;
+}
+
+/* -- The walk, end to end -------------------------------------------------
+   Six screens in source order. auto-fit rather than a fixed column count so
+   the row reflows to three, two and one without a media query per step. */
+.journey {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+  gap: 26px;
+}
+
+.journey__step { display: flex; flex-direction: column; gap: 14px; }
+
+.journey__shot {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: #101417;
+}
+
+.journey__shot img { width: 100%; }
+
+.journey__no {
+  font-family: var(--font-display);
+  font-size: 13px;
+  color: var(--accent);
+}
+
+.journey__name { font-size: 15px; font-weight: 700; }
+.journey__note { font-size: 13px; line-height: 1.55; color: #7d848a; }
+
+/* -- Pipeline ------------------------------------------------------------- */
+.pipeline {
+  display: grid;
+  overflow-wrap: anywhere;
+  /* 170px, not 190: at the widest gutter the content box is 960px, and 190
+     leaves room for four columns, orphaning the fifth stage on its own row. */
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 14px;
+}
+
+.stage {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 20px 18px;
+}
+
+.stage__no { font-family: var(--font-display); font-size: 13px; color: var(--accent); }
+.stage__name { font-size: 15px; font-weight: 700; }
+.stage__note { font-size: 13px; line-height: 1.55; color: #7d848a; }
+
+/* -- Loop or one way ------------------------------------------------------ */
+/* min() so the track can shrink below its 380px ideal on a phone; a bare
+   minmax(380px, 1fr) is a floor, and the grid overflows rather than stacking. */
+.spread { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(380px, 100%), 1fr)); gap: 22px; }
+
+.spread__case {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 30px 28px;
+}
+
+.spread__case svg { flex-shrink: 0; }
+.spread__label { font-family: var(--font-display); font-weight: 800; font-size: 19px; }
+.spread__note { font-size: 14px; line-height: 1.6; color: var(--text-muted); }
+
+/* -- GPS ------------------------------------------------------------------ */
+.gps { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 60px; align-items: start; }
+
+.gps__prose { display: flex; flex-direction: column; gap: 18px; }
+
+.spec {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.spec__row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--line);
+}
+.spec__row:last-child { border-bottom: 0; }
+
+.spec__key { font-size: 14px; color: var(--text-muted); }
+.spec__val { font-family: var(--font-display); font-weight: 800; font-size: 15px; }
+
+/* -- Close ---------------------------------------------------------------- */
+.case-close {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  padding: 66px var(--gutter);
+  border-top: 1px solid var(--line);
+}
+
+.case-close p { font-size: 19px; line-height: 1.6; color: var(--text-soft); max-width: 620px; }
+
+/* -- Narrower -------------------------------------------------------------
+   The gutter token is what the whole page indents by, so the breakpoints only
+   need to move it. The two side-by-side layouts stack at the same width. */
+@media (max-width: 1100px) {
+  :root { --gutter: 64px; }
+  .gps { grid-template-columns: minmax(0, 1fr); gap: 34px; }
+  .case-section--split { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+}
+
+@media (max-width: 720px) {
+  :root { --gutter: 24px; --section-y: 56px; }
+  .case-head { padding: 48px var(--gutter) 40px; }
+  .case-hero { padding: 0 var(--gutter) 48px; }
+  .spread__case { flex-direction: column; align-items: flex-start; gap: 20px; }
+  .case-close { padding: 48px var(--gutter); }
+}

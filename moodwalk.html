@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Moodwalk — Case Study — Yusuke Kamihanawa</title>
+  <meta name="description" content="How Moodwalk invents a walking route from a mood: five stages, a geometric test for whether a loop is worth walking, and guidance that survives bad GPS.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><text y='14' font-size='14'>🕹️</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Doto:wght@400;600;800;900&family=Space+Grotesk:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components/case-study.css">
+</head>
+<body>
+
+  <a class="skip-link" href="#walk">Skip to the walk</a>
+
+  <header class="nav">
+    <div class="nav__inner">
+      <a class="case-nav__back" href="index.html#work">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"></path><path d="m12 19-7-7 7-7"></path></svg>
+        All work
+      </a>
+      <a class="nav__mark" href="index.html">YK<span class="nav__dot" aria-hidden="true"></span></a>
+    </div>
+  </header>
+
+  <main>
+
+    <div class="case-head">
+      <div class="case-meta">
+        <span class="case-meta__live"><span class="case-meta__dot" aria-hidden="true"></span>Live</span>
+        <span class="case-meta__item">Team of 3</span>
+        <span class="case-meta__item">2026</span>
+      </div>
+      <h1>Moodwalk</h1>
+      <p class="case-head__lede">A walking route generated from how you want to feel — built on real places, real street geometry, and a phone's unreliable idea of where you are.</p>
+      <div class="case-head__actions">
+        <a class="btn btn--primary" href="https://moodwalk-ec6251edd332.herokuapp.com/" target="_blank" rel="noopener">
+          Open the app
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"></path><path d="M9 7h8v8"></path></svg>
+        </a>
+        <a class="btn btn--ghost" href="https://github.com/cura-yjk/moodwalk" target="_blank" rel="noopener">
+          Read the code
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"></path><path d="M9 7h8v8"></path></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="case-hero">
+      <img src="images/moodwalk/hero.jpg" alt="Two Moodwalk screens: a generated 17-minute loop drawn on a map, and the turn-by-turn guidance shown while walking it." width="1400" height="525">
+    </div>
+
+    <section class="case-section case-section--split">
+      <p class="eyebrow"><span class="eyebrow__rule" aria-hidden="true"></span>The problem</p>
+      <div class="case-body">
+        <p class="case-lead">Navigation apps answer "how do I get to X". A walk taken to clear your head has no X.</p>
+        <p class="case-prose">So the route has to be invented — and an invented route is only worth walking if it passes real places, follows real streets, and comes back roughly when it said it would. Three constraints that fight each other.</p>
+      </div>
+    </section>
+
+    <section class="case-section" id="walk">
+      <p class="eyebrow"><span class="eyebrow__rule" aria-hidden="true"></span>The walk, end to end</p>
+      <p class="case-prose">Six screens, in order. Every one of these is the real app running against the real Mapbox and Google Places APIs — the route below is one it generated in Higashikasai, Tokyo, and the walk is one that was actually recorded against it.</p>
+
+      <ol class="journey">
+        <li class="journey__step">
+          <div class="journey__shot"><img src="images/moodwalk/1-feel.jpg" alt="Moodwalk's home screen, offering the feelings Calm, Refresh, Cheerful, Recharge and Surprise me." width="600" height="985" loading="lazy"></div>
+          <span class="journey__no">01</span>
+          <span class="journey__name">Pick a feeling</span>
+          <p class="journey__note">Not a filter over pre-made routes. The feeling chooses which Google Places categories get searched near you.</p>
+        </li>
+        <li class="journey__step">
+          <div class="journey__shot"><img src="images/moodwalk/2-duration.jpg" alt="A sheet asking how long you have, offering 10, 20 and 30 minutes or 'No rush'." width="600" height="985" loading="lazy"></div>
+          <span class="journey__no">02</span>
+          <span class="journey__name">Say how long</span>
+          <p class="journey__note">The minutes become a target distance at a fixed 1.33 m/s — the same pace handed to Mapbox, so its estimate agrees with the number you picked.</p>
+        </li>
+        <li class="journey__step">
+          <div class="journey__shot"><img src="images/moodwalk/3-route.jpg" alt="The generated route: a 17-minute loop of about 1,760 steps drawn over a map, with three highlights listed below it." width="600" height="985" loading="lazy"></div>
+          <span class="journey__no">03</span>
+          <span class="journey__name">Get a route</span>
+          <p class="journey__note">A loop or a one-way trip, whichever the nearby places support. Distance and step count come from the route Mapbox actually returned.</p>
+        </li>
+        <li class="journey__step">
+          <div class="journey__shot"><img src="images/moodwalk/4-walking.jpg" alt="The in-walk screen: a large arrow, the instruction 'Keep going straight', and the next turn below it." width="600" height="985" loading="lazy"></div>
+          <span class="journey__no">04</span>
+          <span class="journey__name">Walk it</span>
+          <p class="journey__note">Turn-by-turn from the route's own steps, simplified to left, right and end. GPS breadcrumbs are buffered and posted as you go.</p>
+        </li>
+        <li class="journey__step">
+          <div class="journey__shot"><img src="images/moodwalk/5-reflect.jpg" alt="The post-walk screen: steps, time and distance, a row of mood faces, a reflection box, and a map comparing the suggested route with the one walked." width="600" height="985" loading="lazy"></div>
+          <span class="journey__no">05</span>
+          <span class="journey__name">Log how it went</span>
+          <p class="journey__note">Steps, time and distance come from the breadcrumb trail, and the map draws the suggested route against the one actually walked.</p>
+        </li>
+        <li class="journey__step">
+          <div class="journey__shot"><img src="images/moodwalk/6-memory.jpg" alt="The memory card: the date, mood before and after, and a written line about the walk." width="600" height="985" loading="lazy"></div>
+          <span class="journey__no">06</span>
+          <span class="journey__name">Keep the memory</span>
+          <p class="journey__note">Mood before and after, and a line written by the model from the reflection you left. The one piece of generated prose the walker actually keeps.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="case-section">
+      <p class="eyebrow"><span class="eyebrow__rule" aria-hidden="true"></span>How a route gets built</p>
+      <p class="case-prose">Five stages, each returning its own result object. The first one that fails stops the chain and surfaces its own error, so a dead Google Places key never looks like a Mapbox problem. Describing runs <em>last</em> on purpose: Mapbox rejects candidate routes often enough that describing first would pay for three descriptions and throw two away.</p>
+
+      <ol class="pipeline">
+        <li class="stage">
+          <span class="stage__no">01</span>
+          <span class="stage__name">RouteBuilder</span>
+          <span class="stage__note">Takes a theme and a target duration. Owns the retry loop.</span>
+        </li>
+        <li class="stage">
+          <span class="stage__no">02</span>
+          <span class="stage__name">PoiFinder</span>
+          <span class="stage__note">Asks Google Places for real nearby spots, one call per category.</span>
+        </li>
+        <li class="stage">
+          <span class="stage__no">03</span>
+          <span class="stage__name">PoiSelector</span>
+          <span class="stage__note">Picks 2–4 of them. Plain Ruby, no model call. Where the thinking is.</span>
+        </li>
+        <li class="stage">
+          <span class="stage__no">04</span>
+          <span class="stage__name">JourneyGenerator</span>
+          <span class="stage__note">Routes through them via Mapbox Directions. Rescales and retries.</span>
+        </li>
+        <li class="stage">
+          <span class="stage__no">05</span>
+          <span class="stage__name">RouteDescriber</span>
+          <span class="stage__note">Writes the description. Runs last, and mostly off the request.</span>
+        </li>
+      </ol>
+
+      <p class="case-aside">Worth noting what is <em>not</em> here: the model does not choose the waypoints. It writes prose about waypoints already chosen by code that can be tested — and it writes it after the fact. Every journey is saved with a plain-Ruby description first, so nothing is ever blank, and a background job replaces it when the model answers. The call was two thirds of a route's build time.</p>
+    </section>
+
+    <section class="case-section">
+      <p class="eyebrow"><span class="eyebrow__rule" aria-hidden="true"></span>Loop, or one way?</p>
+      <h2>A loop that retraces its own steps is just a there-and-back with extra confidence.</h2>
+      <p class="case-prose">The first version flipped a coin. It produced loops that walked you up one street and straight back down it, because every interesting place happened to lie in the same direction. The fix is geometric: measure the angular width of the smallest compass arc containing all the waypoints — the bearing spread — and only keep the loop if it clears <code>ROUND_TRIP_SPREAD_THRESHOLD_DEGREES</code>, which is 90°.</p>
+
+      <div class="spread">
+        <div class="spread__case">
+          <svg width="200" height="200" viewBox="0 0 220 220" role="img" aria-label="Three waypoints bunched within a 40 degree arc of the starting point.">
+            <circle cx="110" cy="110" r="80" fill="none" stroke="#23282d" stroke-width="1" stroke-dasharray="3 5"></circle>
+            <path d="M110,110 L137.4,34.8 A80,80 0 0,1 179.3,70 Z" fill="#ff8fa3" fill-opacity="0.14" stroke="#ff8fa3" stroke-opacity="0.45" stroke-width="1"></path>
+            <circle cx="110" cy="110" r="4" fill="#8b9299"></circle>
+            <circle cx="137.4" cy="34.8" r="6" fill="#ff8fa3"></circle>
+            <circle cx="161.4" cy="48.7" r="6" fill="#ff8fa3"></circle>
+            <circle cx="179.3" cy="70" r="6" fill="#ff8fa3"></circle>
+            <text x="110" y="205" text-anchor="middle" fill="#6f767c" font-family="ui-monospace, monospace" font-size="12">spread 40°</text>
+          </svg>
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <span class="spread__label">One way</span>
+            <p class="spread__note">Every place sits in the same direction. Under 90°, so the loop is dropped and the same candidates are re-selected as a one-way trip.</p>
+          </div>
+        </div>
+
+        <div class="spread__case">
+          <svg width="200" height="200" viewBox="0 0 220 220" role="img" aria-label="Three waypoints fanned across a 140 degree arc of the starting point.">
+            <circle cx="110" cy="110" r="80" fill="none" stroke="#23282d" stroke-width="1" stroke-dasharray="3 5"></circle>
+            <path d="M110,110 L137.4,34.8 A80,80 0 0,1 137.4,185.2 Z" fill="#3ee08a" fill-opacity="0.14" stroke="#3ee08a" stroke-opacity="0.45" stroke-width="1"></path>
+            <circle cx="110" cy="110" r="4" fill="#8b9299"></circle>
+            <circle cx="137.4" cy="34.8" r="6" fill="#3ee08a"></circle>
+            <circle cx="190" cy="110" r="6" fill="#3ee08a"></circle>
+            <circle cx="137.4" cy="185.2" r="6" fill="#3ee08a"></circle>
+            <text x="110" y="205" text-anchor="middle" fill="#6f767c" font-family="ui-monospace, monospace" font-size="12">spread 140°</text>
+          </svg>
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <span class="spread__label">Loop</span>
+            <p class="spread__note">The places fan out around the start. Clears 90°, so the route comes back a different way than it went.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <p class="eyebrow"><span class="eyebrow__rule" aria-hidden="true"></span>Guidance that survives bad GPS</p>
+      <div class="gps">
+        <div class="gps__prose">
+          <p class="case-prose">Arrival was originally "is the latest GPS fix within 8 metres of the next waypoint". On a phone, between two fixes you can move fifty metres. A short leg gets jumped clean over, no fix ever lands inside its radius, and guidance stalls forever on a corner you turned two minutes ago.</p>
+          <p class="case-prose">It now tests the <em>segment</em> between consecutive fixes against each upcoming waypoint, not just the newest point. The lookahead is capped at five, because a loop's final waypoint sits back at the start — geometrically close to you the entire walk, and nowhere near you along the path.</p>
+        </div>
+        <div class="spec">
+          <div class="spec__row"><span class="spec__key">Arrival radius</span><span class="spec__val">8 m</span></div>
+          <div class="spec__row"><span class="spec__key">Waypoint lookahead</span><span class="spec__val">5</span></div>
+          <div class="spec__row"><span class="spec__key">Fixes discarded above</span><span class="spec__val">40 m error</span></div>
+          <div class="spec__row"><span class="spec__key">Step length</span><span class="spec__val">0.76 m</span></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="case-close">
+      <p>The whole app is a Rails 8 monolith on PostGIS. The two map API calls are synchronous, inside the request; both LLM calls were moved onto Solid Queue once it was measured how much of the wait they were.</p>
+      <a class="btn btn--ghost" href="https://github.com/cura-yjk/moodwalk" target="_blank" rel="noopener">
+        Read the code
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"></path><path d="M9 7h8v8"></path></svg>
+      </a>
+    </div>
+
+  </main>
+
+</body>
+</html>
