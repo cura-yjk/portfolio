@@ -1,3 +1,6 @@
 .DS_Store
 Thumbs.db
 *.swp
+
+# Test tooling. The site itself still ships with no dependencies.
+node_modules/

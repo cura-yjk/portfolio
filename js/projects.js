@@ -173,3 +173,9 @@ function render() {
 }
 
 document.addEventListener("DOMContentLoaded", render);
+
+// A browser has no `module`, so this is a no-op there and the file stays a
+// plain script that works from file://. Node uses it to test the rules above.
+if (typeof module !== "undefined") {
+  module.exports = { PROJECTS, el, arrowIcon, linkTo, thumbFor, cardFor, render };
+}
