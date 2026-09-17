@@ -1,7 +1,7 @@
 /* -- Case study ------------------------------------------------------------
    One project, at length. Linked from a card; only loaded by the page that
    uses it, so the index does not pay for it. Everything here reads the tokens
-   in style.css — no colours are redeclared. */
+   in style.css; no colours are redeclared. */
 
 .case-nav__back {
   display: inline-flex;
@@ -90,9 +90,9 @@
    and it is wider than a phone's text column. */
 .case-prose code { overflow-wrap: anywhere; }
 
-.case-lead { font-size: 21px; line-height: 1.6; color: #e6e9ea; max-width: 760px; }
+.case-lead { font-size: 21px; line-height: 1.6; color: var(--text-bright); max-width: 760px; }
 .case-prose { font-size: 17px; line-height: 1.75; color: var(--text-muted); max-width: 760px; }
-.case-aside { font-size: 15px; line-height: 1.7; color: #6f767c; max-width: 760px; }
+.case-aside { font-size: 15px; line-height: 1.7; color: var(--text-faint); max-width: 760px; }
 
 .case-section h2 {
   font-size: clamp(26px, 3vw, 34px);
@@ -123,7 +123,7 @@
   border: 1px solid var(--line);
   border-radius: 14px;
   overflow: hidden;
-  background: #101417;
+  background: var(--surface-2);
 }
 
 .journey__shot img { width: 100%; }
@@ -162,7 +162,7 @@
 
 .stage__no { font-family: var(--font-display); font-size: 13px; color: var(--accent); }
 .stage__name { font-size: 15px; font-weight: 700; }
-.stage__note { font-size: 13px; line-height: 1.55; color: #7d848a; }
+.stage__note { font-size: 13px; line-height: 1.55; color: var(--tag-text); }
 
 /* -- Loop or one way ------------------------------------------------------ */
 /* min() so the track can shrink below its 380px ideal on a phone; a bare
@@ -183,10 +183,19 @@
 .spread__label { font-family: var(--font-display); font-weight: 800; font-size: 19px; }
 .spread__note { font-size: 14px; line-height: 1.6; color: var(--text-muted); }
 
-/* -- GPS ------------------------------------------------------------------ */
-.gps { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 60px; align-items: start; }
+/* -- Diagram colours -------------------------------------------------------
+   The figures paint with currentColor, so one `color` per class carries them
+   through the light theme, print and forced-colors without touching markup. */
+.dia-rule  { color: var(--rule); }
+.dia-bad   { color: var(--diagram-bad); }
+.dia-good  { color: var(--diagram-good); }
+.dia-mark  { color: var(--diagram-mark); }
+.dia-label { color: var(--text-faint); }
 
-.gps__prose { display: flex; flex-direction: column; gap: 18px; }
+/* -- Prose beside a spec table --------------------------------------------- */
+.split-figure { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 60px; align-items: start; }
+
+.split-figure__prose { display: flex; flex-direction: column; gap: 18px; }
 
 .spec {
   display: flex;
@@ -227,7 +236,7 @@
    need to move it. The two side-by-side layouts stack at the same width. */
 @media (max-width: 1100px) {
   :root { --gutter: 64px; }
-  .gps { grid-template-columns: minmax(0, 1fr); gap: 34px; }
+  .split-figure { grid-template-columns: minmax(0, 1fr); gap: 34px; }
   .case-section--split { grid-template-columns: minmax(0, 1fr); gap: 24px; }
   /* Stacked, every step reads top-down in the same direction; a reversed
      column would put step 02's caption above its screen and the rest below. */
