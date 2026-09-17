@@ -27,6 +27,7 @@ const PROJECTS = [
       "Finished walks can be shared to a community feed.",
     tags: ["Rails 8", "PostGIS", "Mapbox", "Google Places"],
     initials: "MW",
+    image: "images/moodwalk.jpg",
     live: "https://moodwalk-ec6251edd332.herokuapp.com/",
     repo: "https://github.com/cura-yjk/moodwalk",
     team: "Team of 3"
