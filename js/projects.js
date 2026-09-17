@@ -16,6 +16,9 @@
 //   team        Credit line, e.g. "Team of 3". Omit on solo work.    (optional)
 //   image       Screenshot path, e.g. "images/moodwalk.png". Omit
 //               it and the card shows `initials` instead.           (optional)
+//   caseStudy   Path to a write-up page on this site, e.g.
+//               "moodwalk.html". Adds a "Case study" link, which
+//               becomes the card's primary one.                     (optional)
 // =============================================================================
 
 const PROJECTS = [
@@ -28,6 +31,7 @@ const PROJECTS = [
     tags: ["Rails 8", "PostGIS", "Mapbox", "Google Places"],
     initials: "MW",
     image: "images/moodwalk.jpg",
+    caseStudy: "moodwalk.html",
     live: "https://moodwalk-ec6251edd332.herokuapp.com/",
     repo: "https://github.com/cura-yjk/moodwalk",
     team: "Team of 3"
@@ -63,7 +67,9 @@ function el(tag, className, text) {
   return node;
 }
 
-function arrowIcon() {
+// Two arrows, because the links no longer all do the same thing: out-of-page
+// for anything that leaves the site, straight ahead for a page on it.
+function arrowIcon(internal) {
   const svg = document.createElementNS(svgNS, "svg");
   svg.setAttribute("viewBox", "0 0 24 24");
   svg.setAttribute("fill", "none");
@@ -72,7 +78,8 @@ function arrowIcon() {
   svg.setAttribute("stroke-linecap", "round");
   svg.setAttribute("stroke-linejoin", "round");
   svg.setAttribute("aria-hidden", "true");
-  for (const d of ["M7 17 17 7", "M9 7h8v8"]) {
+  const paths = internal ? ["M5 12h14", "m12 5 7 7-7 7"] : ["M7 17 17 7", "M9 7h8v8"];
+  for (const d of paths) {
     const path = document.createElementNS(svgNS, "path");
     path.setAttribute("d", d);
     svg.appendChild(path);
@@ -80,13 +87,16 @@ function arrowIcon() {
   return svg;
 }
 
-function linkTo(url, label, variant) {
+function linkTo(url, label, variant, internal) {
   const a = el("a", `card__link card__link--${variant}`);
   a.href = url;
-  a.append(label, arrowIcon());
-  // Every project link leaves the site.
-  a.target = "_blank";
-  a.rel = "noopener";
+  a.append(label, arrowIcon(internal));
+  // A case study is a page on this site; everything else leaves it, and a link
+  // that leaves gets a new tab so the grid is still there to come back to.
+  if (!internal) {
+    a.target = "_blank";
+    a.rel = "noopener";
+  }
   a.setAttribute("aria-label", label);
   return a;
 }
@@ -132,7 +142,12 @@ function cardFor(project) {
   body.appendChild(tags);
 
   const links = el("div", "card__links");
-  if (project.live) links.appendChild(linkTo(project.live, "Live site", "primary"));
+  if (project.caseStudy) {
+    links.appendChild(linkTo(project.caseStudy, "Case study", "primary", true));
+  }
+  if (project.live) {
+    links.appendChild(linkTo(project.live, "Live site", project.caseStudy ? "muted" : "primary"));
+  }
   if (project.repo) links.appendChild(linkTo(project.repo, "Code", "muted"));
   if (links.childElementCount) body.appendChild(links);
 

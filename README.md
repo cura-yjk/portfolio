@@ -16,8 +16,9 @@ change the values:
   blurb: "One or two sentences. What it does, and for whom.",
   tags: ["Rails 8", "PostgreSQL"],
   initials: "PN",
-  live: "https://example.com",              // omit if not deployed
-  repo: "https://github.com/cura-yjk/thing" // omit if private
+  live: "https://example.com",               // omit if not deployed
+  repo: "https://github.com/cura-yjk/thing", // omit if private
+  caseStudy: "thing.html"                    // omit if there's no write-up
 }
 ```
 
@@ -27,16 +28,22 @@ The grid places the card itself. Two projects or twenty, nothing else needs touc
   "Live" pill on its own — no dead buttons.
 - **No screenshot?** Leave `image` out and the card shows `initials` on a pixel grid instead.
   To add one later, drop the file in `images/` and set `image: "images/name.png"`.
+- **Written it up?** Point `caseStudy` at a page on this site. The card grows a "Case study"
+  link, which becomes its primary one and opens in the same tab — everything else still opens
+  in a new one. See `moodwalk.html`.
 - Order in the array is the order on the page. Newest first reads well.
 
 ## Layout
 
 ```
-index.html              the page
-css/style.css           tokens, layout, sections
-css/components/card.css the project card
-js/projects.js          project data + the code that renders it
-images/                 portrait, and project screenshots
+index.html                    the page
+moodwalk.html                 the Moodwalk case study
+css/style.css                 tokens, layout, sections
+css/components/card.css       the project card
+css/components/case-study.css the case study page, loaded only by it
+js/projects.js                project data + the code that renders it
+images/                       portrait, and project screenshots
+images/moodwalk/              the case study's own screens
 ```
 
 **Changing colours or spacing** is one place: the `:root` block at the top of `css/style.css`.
