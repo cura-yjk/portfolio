@@ -27,7 +27,7 @@ const PROJECTS = [
     blurb:
       "Generates a walking route near you from how you want to feel, guides you along it turn by " +
       "turn while tracking the path you actually take, then logs your mood and a reflection. " +
-      "Finished walks can be shared to a community feed.",
+      "You can share finished walks to a community feed.",
     tags: ["Rails 8", "PostGIS", "Mapbox", "Google Places"],
     initials: "MW",
     image: "images/moodwalk.jpg",
@@ -40,11 +40,12 @@ const PROJECTS = [
     name: "Pera Flash",
     blurb:
       "A Japanese tutor you chat with. Pera corrects your sentences and explains the grammar, " +
-      "then turns the conversation into flashcards you review on a spaced-repetition schedule, " +
-      "quiz yourself on, and export to Anki. Interface in six languages.",
+      "then turns the conversation into flashcards. Review them on a spaced-repetition " +
+      "schedule, quiz yourself, or export the deck to Anki. Interface in six languages.",
     tags: ["Rails 8", "Gemini", "Hotwire", "PostgreSQL"],
     initials: "PF",
     image: "images/pera-flash.jpg",
+    caseStudy: "pera-flash.html",
     live: "https://pera-flash-3683e7b80a56.herokuapp.com/",
     repo: "https://github.com/cura-yjk/pera-flash",
     team: "Team of 3"

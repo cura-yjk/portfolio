@@ -1,5 +1,5 @@
 /* =============================================================================
-   Project card — the repeating unit of the projects grid.
+   Project card: the repeating unit of the projects grid.
    Rendered from js/projects.js; every class here is applied there.
    ============================================================================= */
 
@@ -30,10 +30,10 @@
   align-items: center;
   justify-content: center;
   border-bottom: 1px solid var(--line);
-  background-color: #101417;
+  background-color: var(--surface-2);
   background-image:
-    linear-gradient(#171c20 1px, transparent 1px),
-    linear-gradient(90deg, #171c20 1px, transparent 1px);
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
   background-size: 16px 16px;
 }
 
@@ -42,10 +42,10 @@
   font-weight: 800;
   font-size: clamp(48px, 11cqw, 76px);
   letter-spacing: 2px;
-  color: #2f363c;
+  color: var(--placeholder);
 }
 
-.card__thumb--shot { background: #101417; padding: 0; }
+.card__thumb--shot { background: var(--surface-2); padding: 0; }
 .card__shot { width: 100%; height: 100%; object-fit: cover; object-position: top; }
 
 /* -- Body ----------------------------------------------------------------- */
@@ -89,7 +89,7 @@
 .card__blurb { font-size: 15px; line-height: 1.6; color: var(--text-muted); }
 
 .card__tags { display: flex; flex-wrap: wrap; gap: 7px; }
-.card__tags .tag { font-size: 12px; color: #7d848a; padding: 4px 9px; }
+.card__tags .tag { font-size: 12px; color: var(--tag-text); padding: 4px 9px; }
 
 /* -- Links ----------------------------------------------------------------
    margin-top:auto pairs with the body's flex-grow to bottom-align these. */
@@ -105,7 +105,7 @@
 .card__link svg { width: 13px; height: 13px; flex-shrink: 0; }
 
 .card__link--primary { color: var(--accent); font-weight: 500; }
-.card__link--primary:hover { color: #6cf0ad; }
+.card__link--primary:hover { color: var(--accent-hi); }
 
 .card__link--muted { color: var(--text-muted); }
 .card__link--muted:hover { color: var(--text); }
