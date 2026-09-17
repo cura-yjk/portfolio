@@ -2,8 +2,9 @@
 
 My personal site: [cura-yjk.github.io/portfolio](https://cura-yjk.github.io/portfolio)
 
-Plain HTML, CSS and JavaScript. No framework, no build step, no dependencies. Open
-`index.html` in a browser and it works.
+Plain HTML, CSS and JavaScript. No framework and no build step. Open `index.html` in a
+browser and it works: the site itself ships with no dependencies. The only ones in
+`package.json` are for the tests, which never reach the page.
 
 ## Adding a project
 
@@ -60,9 +61,24 @@ python3 -m http.server 8000
 
 then visit <http://localhost:8000>.
 
+## Tests
+
+```
+npm install   # once, for jsdom
+npm test
+```
+
+`test/projects.test.js` covers the card rules this README describes: no `live` URL means no
+pill and no dead button, a `caseStudy` takes the primary link and demotes the rest, a missing
+`image` falls back to `initials`. It also checks that every `image` and `caseStudy` path points
+at a file that exists, which is the typo most likely to ship unnoticed.
+
+If you change a rule here, a test will tell you the README is now wrong too.
+
 ## Deploying
 
-Pushing to `master` is the deploy: GitHub Pages serves the repo root. No build, no CI.
+Pushing to `master` is the deploy: GitHub Pages serves the repo root. No build step and no CI,
+so run `npm test` before pushing.
 
 ## License
 
