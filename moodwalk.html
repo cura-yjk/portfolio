@@ -49,7 +49,7 @@
     </div>
 
     <div class="case-hero">
-      <img src="images/moodwalk/hero.jpg" alt="Three Moodwalk screens: a generated 17-minute loop drawn on a map, the turn-by-turn guidance shown while walking it, and the memory card kept afterwards." width="1400" height="700">
+      <img src="images/moodwalk/hero.jpg" alt="Three Moodwalk screens on a phone: a nine-minute route drawn over a map of Meguro, the turn-by-turn guidance shown while walking it, and the memory card kept afterwards." width="1400" height="700">
     </div>
 
     <section class="case-section case-section--split">
@@ -62,11 +62,11 @@
 
     <section class="case-section" id="walk">
       <p class="eyebrow"><span class="eyebrow__rule" aria-hidden="true"></span>The walk, end to end</p>
-      <p class="case-prose">Six screens, in order. Every one of these is the real app running against the real Mapbox and Google Places APIs — the route below is one it generated in Higashikasai, Tokyo, and the walk is one that was actually recorded against it.</p>
+      <p class="case-prose">Seven screens, in order, photographed on a phone rather than staged in a browser. One walk in Meguro, Tokyo: the route the app built that afternoon, the guidance that ran while it was walked, and the mood and photo logged at the end of it.</p>
 
       <ol class="journey">
         <li class="journey__step">
-          <div class="journey__shot"><img src="images/moodwalk/1-feel.jpg" alt="Moodwalk's home screen, offering the feelings Calm, Refresh, Cheerful, Recharge and Surprise me." width="640" height="1387" loading="lazy"></div>
+          <div class="journey__shot"><img src="images/moodwalk/1-feel.jpg" alt="Moodwalk’s home screen in Meguro, offering the feelings Calm, Refresh, Cheerful, Recharge and Surprise me." width="860" height="1911" loading="lazy"></div>
           <div class="journey__body">
             <span class="journey__no">01</span>
             <span class="journey__name">Pick a feeling</span>
@@ -74,41 +74,49 @@
           </div>
         </li>
         <li class="journey__step">
-          <div class="journey__shot"><img src="images/moodwalk/2-duration.jpg" alt="A sheet asking how long you have, offering 10, 20 and 30 minutes or 'No rush'." width="640" height="768" loading="lazy"></div>
+          <div class="journey__shot"><img src="images/moodwalk/2-duration.jpg" alt="A sheet asking how long you have, with 10 minutes chosen from 10, 20, 30 and ‘No rush’." width="860" height="1911" loading="lazy"></div>
           <div class="journey__body">
             <span class="journey__no">02</span>
             <span class="journey__name">Say how long</span>
-            <p class="journey__note">The minutes become a target distance at a fixed 1.33 m/s — the same pace handed to Mapbox, so its estimate agrees with the number you picked rather than with its own default. Choose “No rush” and there is no target at all: the selector optimises for spread and variety instead of fitting a clock.</p>
+            <p class="journey__note">The minutes become a target distance at a fixed 1.33 m/s — the same pace handed to Mapbox, so its estimate agrees with the number you picked rather than with its own default. Ten minutes were asked for here; the route that came back is nine, comfortably inside the 15% the generator will accept before it rescales and tries again.</p>
           </div>
         </li>
         <li class="journey__step">
-          <div class="journey__shot"><img src="images/moodwalk/3-route.jpg" alt="The generated route: a 17-minute loop of about 1,760 steps drawn over a map, with three highlights listed below it." width="640" height="1387" loading="lazy"></div>
+          <div class="journey__shot"><img src="images/moodwalk/3-route.jpg" alt="The generated route: a nine-minute one-way walk of about 966 steps drawn over a map of Meguro, with three highlights listed below it." width="860" height="1911" loading="lazy"></div>
           <div class="journey__body">
             <span class="journey__no">03</span>
             <span class="journey__name">Get a route</span>
-            <p class="journey__note">A loop or a one-way trip, whichever the nearby places support — the test for which is two sections down. Distance and step count come from the route Mapbox actually returned, not from the target that was asked for.</p>
+            <p class="journey__note">Nine minutes, one way, about 966 steps, through Meguroku Center Park and along the canal. One way rather than a loop because the places worth walking to all sat in the same direction — the test for that is two sections down. The distance and step count come from the route Mapbox returned, not from the target that was asked for.</p>
           </div>
         </li>
         <li class="journey__step">
-          <div class="journey__shot"><img src="images/moodwalk/4-walking.jpg" alt="The in-walk screen: a large arrow, the instruction 'Keep going straight', and the next turn below it." width="640" height="1387" loading="lazy"></div>
+          <div class="journey__shot"><img src="images/moodwalk/4-walking.jpg" alt="The in-walk screen: a large arrow, the instruction ‘Keep going straight’, and ‘then turn right’ below it." width="860" height="1911" loading="lazy"></div>
           <div class="journey__body">
             <span class="journey__no">04</span>
             <span class="journey__name">Walk it</span>
-            <p class="journey__note">Turn-by-turn from the route’s own steps, simplified to left, right and end. GPS breadcrumbs are buffered and posted as you go, which is what makes the comparison on the next screen possible. In development the walk can be simulated at speed — which is how this screen was captured without walking it.</p>
+            <p class="journey__note">Turn-by-turn from the route’s own steps, simplified to left, right and end. GPS breadcrumbs are buffered and posted as you go, which is what makes the comparison two screens down possible. The camera button attaches a photo to the walk without leaving the guidance.</p>
           </div>
         </li>
         <li class="journey__step">
-          <div class="journey__shot"><img src="images/moodwalk/5-reflect.jpg" alt="The post-walk screen: steps, time and distance, a row of mood faces, a reflection box, and a map comparing the suggested route with the one walked." width="640" height="1387" loading="lazy"></div>
+          <div class="journey__shot"><img src="images/moodwalk/5-finish.jpg" alt="The walk-complete screen: a photo of a mosaic mural taken during the walk, above 1,070 steps, 11 minutes and 0.81 km." width="860" height="1911" loading="lazy"></div>
           <div class="journey__body">
             <span class="journey__no">05</span>
-            <span class="journey__name">Log how it went</span>
-            <p class="journey__note">Steps, time and distance come from the breadcrumb trail, and the map draws the suggested route against the one actually walked. Planned and actual steps divide by the same 0.76 m, or every walk would report a gap it never had.</p>
+            <span class="journey__name">Finish</span>
+            <p class="journey__note">Eleven minutes, 1,070 steps, 0.81 km — all three read off the breadcrumb trail rather than off the plan. The photo is the one taken mid-walk, a mosaic wall near Meguroku Center Park.</p>
           </div>
         </li>
         <li class="journey__step">
-          <div class="journey__shot"><img src="images/moodwalk/6-memory.jpg" alt="The memory card: the date, mood before and after, and a written line about the walk." width="640" height="1387" loading="lazy"></div>
+          <div class="journey__shot"><img src="images/moodwalk/6-reflect.jpg" alt="The lower half of the same screen: a row of mood faces, a reflection reading ‘I feel better after the short walk’, and a map comparing the suggested route with the one walked." width="860" height="1911" loading="lazy"></div>
           <div class="journey__body">
             <span class="journey__no">06</span>
+            <span class="journey__name">Log how it went</span>
+            <p class="journey__note">The same screen, further down: how you feel now, anything worth remembering, and the suggested route drawn against the one actually walked. 1,070 steps against the 966 planned — and both divide by the same 0.76 m, or the difference would be an artefact of the arithmetic rather than of the walk.</p>
+          </div>
+        </li>
+        <li class="journey__step">
+          <div class="journey__shot"><img src="images/moodwalk/7-memory.jpg" alt="The memory card over the walk’s own photo: the date, energised before and after, and the line ‘A short walk was enough to feel better. The steady energy carries forward.’" width="860" height="1911" loading="lazy"></div>
+          <div class="journey__body">
+            <span class="journey__no">07</span>
             <span class="journey__name">Keep the memory</span>
             <p class="journey__note">Mood before and after, and a line written by the model from the reflection you left — the one piece of generated prose the walker actually keeps. A plain-Ruby quote is saved first, so a card is never blank while the model is still thinking.</p>
           </div>
