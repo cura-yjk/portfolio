@@ -66,40 +66,52 @@
 
       <ol class="journey">
         <li class="journey__step">
-          <div class="journey__shot"><img src="images/moodwalk/1-feel.jpg" alt="Moodwalk's home screen, offering the feelings Calm, Refresh, Cheerful, Recharge and Surprise me." width="540" height="1398" loading="lazy"></div>
-          <span class="journey__no">01</span>
-          <span class="journey__name">Pick a feeling</span>
-          <p class="journey__note">Not a filter over pre-made routes. The feeling chooses which Google Places categories get searched near you.</p>
+          <div class="journey__shot"><img src="images/moodwalk/1-feel.jpg" alt="Moodwalk's home screen, offering the feelings Calm, Refresh, Cheerful, Recharge and Surprise me." width="640" height="1387" loading="lazy"></div>
+          <div class="journey__body">
+            <span class="journey__no">01</span>
+            <span class="journey__name">Pick a feeling</span>
+            <p class="journey__note">Not a filter over pre-made routes. The feeling decides which Google Places categories get searched near you, so the same spot on the map gives a different walk depending on the answer. “Surprise me” picks one of the five at random, server-side.</p>
+          </div>
         </li>
         <li class="journey__step">
-          <div class="journey__shot"><img src="images/moodwalk/2-duration.jpg" alt="A sheet asking how long you have, offering 10, 20 and 30 minutes or 'No rush'." width="540" height="1398" loading="lazy"></div>
-          <span class="journey__no">02</span>
-          <span class="journey__name">Say how long</span>
-          <p class="journey__note">The minutes become a target distance at a fixed 1.33 m/s — the same pace handed to Mapbox, so its estimate agrees with the number you picked.</p>
+          <div class="journey__shot"><img src="images/moodwalk/2-duration.jpg" alt="A sheet asking how long you have, offering 10, 20 and 30 minutes or 'No rush'." width="640" height="768" loading="lazy"></div>
+          <div class="journey__body">
+            <span class="journey__no">02</span>
+            <span class="journey__name">Say how long</span>
+            <p class="journey__note">The minutes become a target distance at a fixed 1.33 m/s — the same pace handed to Mapbox, so its estimate agrees with the number you picked rather than with its own default. Choose “No rush” and there is no target at all: the selector optimises for spread and variety instead of fitting a clock.</p>
+          </div>
         </li>
         <li class="journey__step">
-          <div class="journey__shot"><img src="images/moodwalk/3-route.jpg" alt="The generated route: a 17-minute loop of about 1,760 steps drawn over a map, with three highlights listed below it." width="540" height="1398" loading="lazy"></div>
-          <span class="journey__no">03</span>
-          <span class="journey__name">Get a route</span>
-          <p class="journey__note">A loop or a one-way trip, whichever the nearby places support. Distance and step count come from the route Mapbox actually returned.</p>
+          <div class="journey__shot"><img src="images/moodwalk/3-route.jpg" alt="The generated route: a 17-minute loop of about 1,760 steps drawn over a map, with three highlights listed below it." width="640" height="1387" loading="lazy"></div>
+          <div class="journey__body">
+            <span class="journey__no">03</span>
+            <span class="journey__name">Get a route</span>
+            <p class="journey__note">A loop or a one-way trip, whichever the nearby places support — the test for which is two sections down. Distance and step count come from the route Mapbox actually returned, not from the target that was asked for.</p>
+          </div>
         </li>
         <li class="journey__step">
-          <div class="journey__shot"><img src="images/moodwalk/4-walking.jpg" alt="The in-walk screen: a large arrow, the instruction 'Keep going straight', and the next turn below it." width="540" height="1398" loading="lazy"></div>
-          <span class="journey__no">04</span>
-          <span class="journey__name">Walk it</span>
-          <p class="journey__note">Turn-by-turn from the route's own steps, simplified to left, right and end. GPS breadcrumbs are buffered and posted as you go.</p>
+          <div class="journey__shot"><img src="images/moodwalk/4-walking.jpg" alt="The in-walk screen: a large arrow, the instruction 'Keep going straight', and the next turn below it." width="640" height="1387" loading="lazy"></div>
+          <div class="journey__body">
+            <span class="journey__no">04</span>
+            <span class="journey__name">Walk it</span>
+            <p class="journey__note">Turn-by-turn from the route’s own steps, simplified to left, right and end. GPS breadcrumbs are buffered and posted as you go, which is what makes the comparison on the next screen possible. In development the walk can be simulated at speed — which is how this screen was captured without walking it.</p>
+          </div>
         </li>
         <li class="journey__step">
-          <div class="journey__shot"><img src="images/moodwalk/5-reflect.jpg" alt="The post-walk screen: steps, time and distance, a row of mood faces, a reflection box, and a map comparing the suggested route with the one walked." width="540" height="1398" loading="lazy"></div>
-          <span class="journey__no">05</span>
-          <span class="journey__name">Log how it went</span>
-          <p class="journey__note">Steps, time and distance come from the breadcrumb trail, and the map draws the suggested route against the one actually walked.</p>
+          <div class="journey__shot"><img src="images/moodwalk/5-reflect.jpg" alt="The post-walk screen: steps, time and distance, a row of mood faces, a reflection box, and a map comparing the suggested route with the one walked." width="640" height="1387" loading="lazy"></div>
+          <div class="journey__body">
+            <span class="journey__no">05</span>
+            <span class="journey__name">Log how it went</span>
+            <p class="journey__note">Steps, time and distance come from the breadcrumb trail, and the map draws the suggested route against the one actually walked. Planned and actual steps divide by the same 0.76 m, or every walk would report a gap it never had.</p>
+          </div>
         </li>
         <li class="journey__step">
-          <div class="journey__shot"><img src="images/moodwalk/6-memory.jpg" alt="The memory card: the date, mood before and after, and a written line about the walk." width="540" height="1398" loading="lazy"></div>
-          <span class="journey__no">06</span>
-          <span class="journey__name">Keep the memory</span>
-          <p class="journey__note">Mood before and after, and a line written by the model from the reflection you left. The one piece of generated prose the walker actually keeps.</p>
+          <div class="journey__shot"><img src="images/moodwalk/6-memory.jpg" alt="The memory card: the date, mood before and after, and a written line about the walk." width="640" height="1387" loading="lazy"></div>
+          <div class="journey__body">
+            <span class="journey__no">06</span>
+            <span class="journey__name">Keep the memory</span>
+            <p class="journey__note">Mood before and after, and a line written by the model from the reflection you left — the one piece of generated prose the walker actually keeps. A plain-Ruby quote is saved first, so a card is never blank while the model is still thinking.</p>
+          </div>
         </li>
       </ol>
     </section>

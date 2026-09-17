@@ -101,33 +101,42 @@
 }
 
 /* -- The walk, end to end -------------------------------------------------
-   Six screens in source order. auto-fit rather than a fixed column count so
-   the row reflows to three, two and one without a media query per step. */
-.journey {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
-  gap: 26px;
+   One step per row, screen beside its caption, sides alternating. A grid of
+   six tall phone screens put the caption a long way under the thing it
+   described, and shrank each screen to a strip. */
+.journey { display: flex; flex-direction: column; gap: 72px; }
+
+.journey__step {
+  display: flex;
+  align-items: center;
+  gap: 64px;
 }
 
-.journey__step { display: flex; flex-direction: column; gap: 14px; }
+/* Alternate which side the screen sits on. row-reverse rather than an order
+   swap, so the DOM keeps reading 01, 02, 03 for a screen reader. */
+.journey__step:nth-child(even) { flex-direction: row-reverse; }
 
 .journey__shot {
+  flex: 0 0 280px;
   border: 1px solid var(--line);
-  border-radius: var(--radius);
+  border-radius: 14px;
   overflow: hidden;
   background: #101417;
 }
 
 .journey__shot img { width: 100%; }
 
+.journey__body { display: flex; flex-direction: column; gap: 12px; max-width: 460px; }
+
 .journey__no {
   font-family: var(--font-display);
-  font-size: 13px;
+  font-size: 14px;
+  letter-spacing: 2px;
   color: var(--accent);
 }
 
-.journey__name { font-size: 15px; font-weight: 700; }
-.journey__note { font-size: 13px; line-height: 1.55; color: #7d848a; }
+.journey__name { font-family: var(--font-display); font-weight: 800; font-size: 26px; }
+.journey__note { font-size: 17px; line-height: 1.7; color: var(--text-muted); }
 
 /* -- Pipeline ------------------------------------------------------------- */
 .pipeline {
@@ -218,6 +227,11 @@
   :root { --gutter: 64px; }
   .gps { grid-template-columns: minmax(0, 1fr); gap: 34px; }
   .case-section--split { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  /* Stacked, every step reads top-down in the same direction; a reversed
+     column would put step 02's caption above its screen and the rest below. */
+  .journey__step,
+  .journey__step:nth-child(even) { flex-direction: column; align-items: flex-start; gap: 24px; }
+  .journey__shot { flex: 0 0 auto; width: min(300px, 100%); align-self: center; }
 }
 
 @media (max-width: 720px) {
@@ -225,5 +239,6 @@
   .case-head { padding: 48px var(--gutter) 40px; }
   .case-hero { padding: 0 var(--gutter) 48px; }
   .spread__case { flex-direction: column; align-items: flex-start; gap: 20px; }
+  .journey { gap: 48px; }
   .case-close { padding: 48px var(--gutter); }
 }
