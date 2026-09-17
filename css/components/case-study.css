@@ -117,7 +117,9 @@
 .journey__step:nth-child(even) { flex-direction: row-reverse; }
 
 .journey__shot {
-  flex: 0 0 280px;
+  /* 430px is the viewport these were captured at, so the screens render at
+     the size they are on a phone rather than a shrunken copy of it. */
+  flex: 0 0 430px;
   border: 1px solid var(--line);
   border-radius: 14px;
   overflow: hidden;
@@ -231,7 +233,7 @@
      column would put step 02's caption above its screen and the rest below. */
   .journey__step,
   .journey__step:nth-child(even) { flex-direction: column; align-items: flex-start; gap: 24px; }
-  .journey__shot { flex: 0 0 auto; width: min(300px, 100%); align-self: center; }
+  .journey__shot { flex: 0 0 auto; width: min(430px, 100%); align-self: center; }
 }
 
 @media (max-width: 720px) {

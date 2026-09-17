@@ -52,7 +52,10 @@ p { margin: 0; text-wrap: pretty; }
 a { color: var(--text); text-decoration: none; }
 a:hover { color: #fff; }
 
-img { max-width: 100%; display: block; }
+/* height: auto matters as soon as an <img> carries width/height attributes:
+   max-width shrinks the width to the column, the attribute keeps the height,
+   and the picture stretches. */
+img { max-width: 100%; height: auto; display: block; }
 
 ul { margin: 0; padding: 0; list-style: none; }
 
