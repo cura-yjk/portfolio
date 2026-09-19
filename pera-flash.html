@@ -63,7 +63,7 @@
       <h2 class="eyebrow"><span class="eyebrow__rule" aria-hidden="true"></span>The problem</h2>
       <div class="case-body">
         <p class="case-lead">A textbook can anticipate the mistakes it planned to teach. A tutor has to answer the sentence the learner actually wrote.</p>
-        <p class="case-prose">There is no finite list of those. Correcting free-form Japanese, saying which part is wrong and why, and doing it in whichever of six interface languages the learner reads, is the shape of problem a language model is good at. It is also close to the only part of this app that is. Everything the learner does with a correction afterwards, filing it, reviewing it, being quizzed on it, exporting it, is ordinary software, and building it that way is what keeps it free and offline.</p>
+        <p class="case-prose">There is no finite list of those. Correcting free-form Japanese, saying which part is wrong and why, and doing it in whichever of six interface languages the learner reads, is the shape of problem a language model is good at. It is also close to the only part of this app that is. Everything the learner does with a correction afterwards, filing it, reviewing it, being quizzed on it, exporting it, is ordinary software, and building it that way is what keeps it free and working when the provider is not.</p>
       </div>
     </section>
 
@@ -167,13 +167,13 @@
       <div class="split-figure">
         <div class="split-figure__prose">
           <p class="case-prose">Multiple choice needs three plausible wrong answers, and generating them is the obvious job to hand a model. It is also the wrong one. Distractors sampled from the learner's other cards are better than generated ones, because they are the same person's material on the same topic, which makes them genuinely confusable rather than decoratively wrong.</p>
-          <p class="case-prose">They are also free, work offline, and cannot fail. <code>QuizQuestion</code> is not even an ActiveRecord model: a question has no life beyond the moment it is asked, and the card carries everything that outlasts it. The one subtlety is deduplication. Two cards that happen to share an answer would put the same text in two places, and the grader would mark one of them wrong.</p>
+          <p class="case-prose">They are also free, and they cannot fail. <code>QuizQuestion</code> is not even an ActiveRecord model: a question has no life beyond the moment it is asked, and the card carries everything that outlasts it. The one subtlety is deduplication. Two cards that happen to share an answer would put the same text in two places, and the grader would mark one of them wrong.</p>
         </div>
         <div class="spec">
           <div class="spec__row"><span class="spec__key">Options per question</span><span class="spec__val">4</span></div>
           <div class="spec__row"><span class="spec__key">Distractor source</span><span class="spec__val">Own cards</span></div>
           <div class="spec__row"><span class="spec__key">Model calls</span><span class="spec__val">0</span></div>
-          <div class="spec__row"><span class="spec__key">Works offline</span><span class="spec__val">Yes</span></div>
+          <div class="spec__row"><span class="spec__key">Provider outage</span><span class="spec__val">Unaffected</span></div>
         </div>
       </div>
     </section>
