@@ -26,7 +26,7 @@
   --grid-line:     #171c20;   /* the pixel grid behind a missing screenshot */
   --rule:          #23282d;   /* hairlines and diagram axes */
   --line-hover:    #3d444a;
-  --placeholder:   #2f363c;   /* initials shown when a project has no shot */
+  --placeholder:   #7e858c;   /* initials shown when a project has no shot; 4.6:1 on the grid */
   --tag-text:      #7d848a;
 
   --diagram-bad:   #ff8fa3;   /* the before case in a figure */
@@ -47,8 +47,9 @@
 
 /* -- Light theme ----------------------------------------------------------
    Only the tokens change; no rule below this is redeclared. Every value was
-   picked against its own background for at least 4.5:1, apart from
-   --placeholder, which is a decorative watermark rather than information. */
+   picked against its own background for at least 4.5:1, --placeholder
+   included: it duplicates the project name below it, so it is arguably
+   decorative, but it is cheaper to clear 4.5:1 than to argue the exemption. */
 @media (prefers-color-scheme: light) {
   :root {
     --bg:          #fafaf9;
@@ -69,7 +70,7 @@
     --grid-line:   #e7e9ea;
     --rule:        #d6d9db;
     --line-hover:  #9aa1a8;
-    --placeholder: #c3c8cc;
+    --placeholder: #626970;
     --tag-text:    #5b6167;
 
     --diagram-bad:  #b02a4a;
