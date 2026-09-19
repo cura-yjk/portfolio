@@ -88,7 +88,7 @@ function arrowIcon(internal) {
   return svg;
 }
 
-function linkTo(url, label, variant, internal) {
+function linkTo(url, label, variant, internal, project) {
   const a = el("a", `card__link card__link--${variant}`);
   a.href = url;
   a.append(label, arrowIcon(internal));
@@ -98,7 +98,11 @@ function linkTo(url, label, variant, internal) {
     a.target = "_blank";
     a.rel = "noopener";
   }
-  a.setAttribute("aria-label", label);
+  // The visible text stays short, because the card around it says which project
+  // this is. A screen reader's list of links has no card around it: read there,
+  // two projects give "Case study, Live site, Code, Case study, Live site,
+  // Code" and no way to tell which is which. The name carries the project.
+  a.setAttribute("aria-label", project ? `${label}: ${project}` : label);
   return a;
 }
 
@@ -144,12 +148,12 @@ function cardFor(project) {
 
   const links = el("div", "card__links");
   if (project.caseStudy) {
-    links.appendChild(linkTo(project.caseStudy, "Case study", "primary", true));
+    links.appendChild(linkTo(project.caseStudy, "Case study", "primary", true, project.name));
   }
   if (project.live) {
-    links.appendChild(linkTo(project.live, "Live site", project.caseStudy ? "muted" : "primary"));
+    links.appendChild(linkTo(project.live, "Live site", project.caseStudy ? "muted" : "primary", false, project.name));
   }
-  if (project.repo) links.appendChild(linkTo(project.repo, "Code", "muted"));
+  if (project.repo) links.appendChild(linkTo(project.repo, "Code", "muted", false, project.name));
   if (links.childElementCount) body.appendChild(links);
 
   card.appendChild(body);

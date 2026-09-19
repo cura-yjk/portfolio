@@ -40,6 +40,33 @@ const FULL = {
 const linkLabels = (card) =>
   [...card.querySelectorAll(".card__link")].map((a) => a.textContent.trim());
 
+// A screen reader's list of links has no card around it to say which project a
+// link belongs to. Two projects otherwise give six links and three names.
+test("a card's links say which project they belong to", () => {
+  const { api } = load();
+  const card = api.cardFor({ ...FULL, name: "Moodwalk" });
+  const labels = [...card.querySelectorAll(".card__link")].map((a) => a.getAttribute("aria-label"));
+
+  assert.deepEqual(labels, ["Case study: Moodwalk", "Live site: Moodwalk", "Code: Moodwalk"]);
+});
+
+test("the visible text stays short", () => {
+  const { api } = load();
+  const card = api.cardFor({ ...FULL, name: "Moodwalk" });
+
+  assert.deepEqual(linkLabels(card), ["Case study", "Live site", "Code"]);
+});
+
+test("two projects' links are all distinguishable by name", () => {
+  const { api } = load();
+  const names = [
+    ...api.cardFor({ ...FULL, name: "Moodwalk" }).querySelectorAll(".card__link"),
+    ...api.cardFor({ ...FULL, name: "Pera Flash" }).querySelectorAll(".card__link")
+  ].map((a) => a.getAttribute("aria-label"));
+
+  assert.equal(new Set(names).size, names.length, "every link should be tellable from the others");
+});
+
 test("el() builds a node without inventing a class or text", () => {
   const { api } = load();
   const bare = api.el("div");
