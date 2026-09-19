@@ -274,7 +274,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* -- Stack ---------------------------------------------------------------- */
 .stack-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
   gap: 20px;
 }
 
@@ -299,7 +299,7 @@ ul { margin: 0; padding: 0; list-style: none; }
    cards share the width. From three projects up the two behave identically. */
 .projects {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
   gap: 22px;
   align-items: stretch;
 }
