@@ -89,7 +89,7 @@
           <div class="journey__body">
             <span class="journey__no">02</span>
             <span class="journey__name">Say how long</span>
-            <p class="journey__note">The minutes become a target distance at a fixed 1.33 m/s, the same pace handed to Mapbox, so its estimate agrees with the number you picked rather than with its own default. Ten minutes were asked for here; the route that came back is nine, comfortably inside the 25% the builder will accept before it widens the POI search and tries again.</p>
+            <p class="journey__note">The minutes become a target distance at a fixed 1.33 m/s, the same pace handed to Mapbox, so its estimate agrees with the number you picked rather than with its own default. Ten minutes were asked for here; the route that came back is nine, comfortably inside the 25% the builder accepts. Outside it, the next-best set of places already found is routed instead.</p>
           </div>
         </li>
         <li class="journey__step">
@@ -97,7 +97,7 @@
           <div class="journey__body">
             <span class="journey__no">03</span>
             <span class="journey__name">Get a route</span>
-            <p class="journey__note">Nine minutes, one way, about 966 steps, through Meguroku Center Park and along the canal. One way rather than a loop because the places worth walking to all sat in the same direction. The test for that is two sections down. The distance and step count come from the route Mapbox returned, not from the target that was asked for.</p>
+            <p class="journey__note">Nine minutes, one way, about 966 steps, through Meguroku Center Park and along the canal. One way rather than a loop, because the places worth walking to all sat in the same direction and a loop through them would have come back the way it went. How that gets decided is two sections down. The distance and step count come from the route Mapbox returned, not from the target that was asked for.</p>
           </div>
         </li>
         <li class="journey__step">
@@ -143,7 +143,7 @@
         <li class="stage">
           <span class="stage__no">01</span>
           <span class="stage__name">RouteBuilder</span>
-          <span class="stage__note">Takes a theme and a target duration. Owns the retry loop.</span>
+          <span class="stage__note">Takes a theme and a target duration. Tries a loop, then one way, and keeps the better.</span>
         </li>
         <li class="stage">
           <span class="stage__no">02</span>
@@ -153,12 +153,12 @@
         <li class="stage">
           <span class="stage__no">03</span>
           <span class="stage__name">PoiSelector</span>
-          <span class="stage__note">Picks 2–4 of them. Plain Ruby, no model call. Where the thinking is.</span>
+          <span class="stage__note">Shortlists sets of 2–4. Plain Ruby, no model call. Where the thinking is.</span>
         </li>
         <li class="stage">
           <span class="stage__no">04</span>
           <span class="stage__name">JourneyGenerator</span>
-          <span class="stage__note">Routes through them via Mapbox Directions. Rescales and retries.</span>
+          <span class="stage__note">Routes them via Mapbox Directions. The real route is what gets checked.</span>
         </li>
         <li class="stage">
           <span class="stage__no">05</span>
@@ -173,41 +173,42 @@
     <section class="case-section">
       <p class="eyebrow"><span class="eyebrow__rule" aria-hidden="true"></span>Loop, or one way?</p>
       <h2>A loop that retraces its own steps is just a there-and-back with extra confidence.</h2>
-      <p class="case-prose">The first version flipped a coin. It produced loops that walked you up one street and straight back down it, because every interesting place happened to lie in the same direction. The fix is geometric: measure the angular width of the smallest compass arc containing all the waypoints (the bearing spread), and only keep the loop if it clears <code>ROUND_TRIP_SPREAD_THRESHOLD_DEGREES</code>, which is 90°.</p>
+      <p class="case-prose">The first version flipped a coin, and produced loops that walked you up one street and straight back down it. The second measured the bearing spread, the width of the smallest compass arc holding every waypoint, and kept a loop only above 90°. That rewarded the wrong thing. Two places on opposite sides of the start clear 90° easily, and the loop between them runs back through where you began. Measured on real routes, generated walks re-walked 19% of their own streets on average and up to 40%, and six walks in eight passed back through the start mid-walk.</p>
 
       <div class="spread">
         <div class="spread__case">
-          <svg width="200" height="200" viewBox="0 0 220 220" role="img" aria-label="Three waypoints bunched within a 40 degree arc of the starting point.">
+          <svg width="200" height="200" viewBox="0 0 220 220" role="img" aria-label="Two waypoints on nearly opposite sides of the starting point, 165 degrees apart. The loop between them is almost a straight line through the start.">
             <circle cx="110" cy="110" r="80" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="3 5" class="dia-rule"></circle>
-            <path d="M110,110 L137.4,34.8 A80,80 0 0,1 179.3,70 Z" fill="currentColor" fill-opacity="0.14" stroke="currentColor" stroke-opacity="0.45" stroke-width="1" class="dia-bad"></path>
+            <path d="M110,110 L150,40.7 L89.3,187.3 Z" fill="currentColor" fill-opacity="0.14" stroke="currentColor" stroke-opacity="0.6" stroke-width="1.5" stroke-linejoin="round" class="dia-bad"></path>
             <circle cx="110" cy="110" r="4" fill="currentColor" class="dia-mark"></circle>
-            <circle cx="137.4" cy="34.8" r="6" fill="currentColor" class="dia-bad"></circle>
-            <circle cx="161.4" cy="48.7" r="6" fill="currentColor" class="dia-bad"></circle>
-            <circle cx="179.3" cy="70" r="6" fill="currentColor" class="dia-bad"></circle>
-            <text x="110" y="205" text-anchor="middle" fill="currentColor" font-family="ui-monospace, monospace" font-size="12" class="dia-label">spread 40°</text>
+            <circle cx="150" cy="40.7" r="6" fill="currentColor" class="dia-bad"></circle>
+            <circle cx="89.3" cy="187.3" r="6" fill="currentColor" class="dia-bad"></circle>
+            <text x="110" y="214" text-anchor="middle" fill="currentColor" font-family="ui-monospace, monospace" font-size="12" class="dia-label">spread 165° · round 0.10</text>
           </svg>
           <div style="display: flex; flex-direction: column; gap: 10px;">
-            <span class="spread__label">One way</span>
-            <p class="spread__note">Every place sits in the same direction. Under 90°, so the loop is dropped and the same candidates are re-selected as a one-way trip.</p>
+            <span class="spread__label">Passed, wrongly</span>
+            <p class="spread__note">Wide enough for the old test, but the loop has almost no inside. Out to one place, back past the start, out to the other. Under 0.3, so it is never offered as a loop.</p>
           </div>
         </div>
 
         <div class="spread__case">
-          <svg width="200" height="200" viewBox="0 0 220 220" role="img" aria-label="Three waypoints fanned across a 140 degree arc of the starting point.">
+          <svg width="200" height="200" viewBox="0 0 220 220" role="img" aria-label="Two waypoints 70 degrees apart. The loop through them encloses a wide triangle with the start.">
             <circle cx="110" cy="110" r="80" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="3 5" class="dia-rule"></circle>
-            <path d="M110,110 L137.4,34.8 A80,80 0 0,1 137.4,185.2 Z" fill="currentColor" fill-opacity="0.14" stroke="currentColor" stroke-opacity="0.45" stroke-width="1" class="dia-good"></path>
+            <path d="M110,110 L123.9,31.2 L188.8,96.1 Z" fill="currentColor" fill-opacity="0.14" stroke="currentColor" stroke-opacity="0.6" stroke-width="1.5" stroke-linejoin="round" class="dia-good"></path>
             <circle cx="110" cy="110" r="4" fill="currentColor" class="dia-mark"></circle>
-            <circle cx="137.4" cy="34.8" r="6" fill="currentColor" class="dia-good"></circle>
-            <circle cx="190" cy="110" r="6" fill="currentColor" class="dia-good"></circle>
-            <circle cx="137.4" cy="185.2" r="6" fill="currentColor" class="dia-good"></circle>
-            <text x="110" y="205" text-anchor="middle" fill="currentColor" font-family="ui-monospace, monospace" font-size="12" class="dia-label">spread 140°</text>
+            <circle cx="123.9" cy="31.2" r="6" fill="currentColor" class="dia-good"></circle>
+            <circle cx="188.8" cy="96.1" r="6" fill="currentColor" class="dia-good"></circle>
+            <text x="110" y="214" text-anchor="middle" fill="currentColor" font-family="ui-monospace, monospace" font-size="12" class="dia-label">spread 70° · round 0.60</text>
           </svg>
           <div style="display: flex; flex-direction: column; gap: 10px;">
             <span class="spread__label">Loop</span>
-            <p class="spread__note">The places fan out around the start. Clears 90°, so the route comes back a different way than it went.</p>
+            <p class="spread__note">Too narrow for the old test, and exactly the loop worth walking: it goes round something and comes back a different way than it went.</p>
           </div>
         </div>
       </div>
+
+      <p class="case-prose">The plan now scores a loop by its roundness: 4πA/P² over start, waypoints, start, which is 1 for a circle and 0 for a line. Below 0.3 a combination is not offered as a loop at all. But most retracing never shows in a plan drawn with straight lines. A spur in and out of a park, or a street walked twice between two waypoints, only exists in the route Mapbox sends back. So the decision moved to after routing. <code>ShortlistRouter</code> routes the selector’s pick, then up to two alternatives from the same places, and keeps the first that takes within 25% of the time picked and re-walks no more than a tenth of itself. Loops are tried first; if none passes, the one-way shortlist is routed and the better of the two wins.</p>
+      <p class="case-aside">From one real doorstep, every loop option re-walked 24–27% of itself and a one-way walk through the same places re-walked 3%. The old code kept the loop, because the shape was settled before anything had been routed. Checking the real route also made building one cheaper: a route the wrong length used to send a fresh round of Google searches at a wider radius, about 14 Places calls a route, and it rarely helped. Re-picking from places already found costs one Mapbox call and nothing from Google.</p>
     </section>
 
     <section class="case-section">

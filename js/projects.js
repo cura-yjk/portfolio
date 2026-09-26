@@ -40,8 +40,8 @@ const PROJECTS = [
     name: "Pera Flash",
     blurb:
       "A Japanese tutor you chat with. Pera corrects your sentences and explains the grammar, " +
-      "then turns the conversation into flashcards. Review them on a spaced-repetition " +
-      "schedule, quiz yourself, or export the deck to Anki. Interface in six languages.",
+      "then turns the conversation into flashcards, skipping any you already have. Review them " +
+      "on a spaced-repetition schedule, quiz yourself, or export the deck to Anki.",
     tags: ["Rails 8", "Gemini", "Hotwire", "PostgreSQL"],
     initials: "PF",
     image: "images/pera-flash.jpg",
